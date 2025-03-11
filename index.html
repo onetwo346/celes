@@ -341,9 +341,10 @@
             }
         };
 
-        // Open-Source API - Hugging Face (Replace with your key)
-        const API_KEY = "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"; // Get from huggingface.co
+        // Open-Source API - Hugging Face (Test with or without key)
+        const API_KEY = "YOUR_HUGGING_FACE_API_KEY_HERE"; // Replace with real key from huggingface.co
         const API_ENDPOINT = "https://api-inference.huggingface.co/models/gpt2";
+        const USE_API = API_KEY !== "YOUR_HUGGING_FACE_API_KEY_HERE"; // Only use API if key is set
 
         // State
         let currentMode = "";
@@ -408,26 +409,29 @@
                 dnaResponse = celestiaDNA.universalNexus(input, conversationHistory); // Default to cosmic wisdom
             }
 
-            // API Enhancement
-            try {
-                const res = await fetch(API_ENDPOINT, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${API_KEY}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        inputs: `${dnaResponse} Enhance this with cosmic insight or practical steps for Kofi’s inventions.`,
-                        parameters: { max_length: 100, temperature: 0.9 }
-                    })
-                });
-                const data = await res.json();
-                return data[0]?.generated_text || dnaResponse; // API or fallback
-            } catch (e) {
-                return currentMode === "basic" ? 
-                    `Greetings! You said "${input}". How can I assist your cosmic journey?` : 
-                    `${dnaResponse} (Cosmic link offline—still inventing with you!)`;
+            // API Enhancement (Only if key is set)
+            if (USE_API) {
+                try {
+                    const res = await fetch(API_ENDPOINT, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${API_KEY}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            inputs: `${dnaResponse} Enhance this with cosmic insight or practical steps for Kofi’s inventions.`,
+                            parameters: { max_length: 100, temperature: 0.9 }
+                        })
+                    });
+                    const data = await res.json();
+                    return data[0]?.generated_text || dnaResponse; // API or fallback
+                } catch (e) {
+                    console.log("API failed, using DNA:", e);
+                }
             }
+            return currentMode === "basic" ? 
+                `Greetings! You said "${input}". How can I assist your cosmic journey?` : 
+                dnaResponse;
         }
 
         function speak(text) {
