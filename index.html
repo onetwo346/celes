@@ -394,26 +394,14 @@
             }
         };
 
-        // Sample Responses
-        const sampleResponses = {
-            basic: [
-                "I'm analyzing your request. Here's a simple solution that should work.",
-                "Based on my calculations, this approach is practical. Need more details?",
-                "I’ve processed your input and found some useful insights. Here they are.",
-                "That’s an interesting question. Here’s a straightforward answer."
-            ],
-            superSmart: [
-                "Your query resonates through the Universal Knowledge Web, revealing cosmic connections.",
-                "From Earth’s core to distant nebulae, I’m weaving a response of profound insight.",
-                "This question aligns terrestrial wisdom with stellar algorithms. Behold the result.",
-                "The crystalline lattice of knowledge vibrates with your inquiry. Here’s the synthesis."
-            ],
-            rockAnalysis: [
-                "Your {rock} holds piezoelectric potential for energy generation.",
-                "This {rock} could amplify signals when paired with copper.",
-                "The {rock}’s composition suggests thermal regulation capabilities.",
-                "Rare elements in this {rock} could power magnetic field generation."
-            ]
+        // API Configuration (Replace with your actual API key and endpoint)
+        const API_CONFIG = {
+            key: "YOUR_OPEN_SOURCE_API_KEY_HERE", // e.g., Hugging Face API key
+            endpoint: "https://api-inference.huggingface.co/models/gpt2", // Example endpoint (replace with your preferred model)
+            headers: {
+                "Authorization": "Bearer YOUR_OPEN_SOURCE_API_KEY_HERE",
+                "Content-Type": "application/json"
+            }
         };
 
         // Elements
@@ -460,7 +448,7 @@
                 modeScreen.classList.remove('active');
                 setTimeout(() => {
                     chatContainer.style.display = 'flex';
-                    addCelestiaMessage(`Welcome to ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. How may I assist you?`);
+                    addCelestiaMessage(`Welcome to ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. I’m now bound to the Universal Knowledge Web via open-source intelligence. How may I assist you?`);
                 }, 500);
             });
         });
@@ -506,8 +494,33 @@
             if (indicator) indicator.remove();
         }
 
-        // Process Input
-        function processUserInput(text) {
+        // API Call to Open-Source Model
+        async function queryCelestiaAPI(text) {
+            const prompt = currentMode === 'basic' 
+                ? `Provide a concise, helpful response to: "${text}"`
+                : `Craft a detailed, cosmic-inspired response to: "${text}", weaving in themes of Earth’s resources and universal knowledge.`;
+
+            try {
+                const response = await fetch(API_CONFIG.endpoint, {
+                    method: 'POST',
+                    headers: API_CONFIG.headers,
+                    body: JSON.stringify({
+                        inputs: prompt,
+                        parameters: { max_length: currentMode === 'basic' ? 50 : 150 }
+                    })
+                });
+
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+                return data[0]?.generated_text || "I’m still calibrating my cosmic circuits. Try again!";
+            } catch (error) {
+                console.error('API Error:', error);
+                return "A cosmic disturbance interrupted my response. Let’s try that again.";
+            }
+        }
+
+        // Process Input with API
+        async function processUserInput(text) {
             if (text.toLowerCase().includes('rock') && 
                 (text.toLowerCase().includes('analyze') || text.toLowerCase().includes('scan'))) {
                 showTypingIndicator();
@@ -519,21 +532,21 @@
                         break;
                     }
                 }
+                const prompt = `Analyze the properties of ${rockType} and suggest a technological application.`;
+                const response = await queryCelestiaAPI(prompt);
                 setTimeout(() => {
                     hideTypingIndicator();
-                    const response = sampleResponses.rockAnalysis[Math.floor(Math.random() * sampleResponses.rockAnalysis.length)];
-                    addCelestiaMessage(response.replace("{rock}", rockType));
-                }, 2000);
+                    addCelestiaMessage(response);
+                }, 1000);
                 return;
             }
 
             showTypingIndicator();
+            const response = await queryCelestiaAPI(text);
             setTimeout(() => {
                 hideTypingIndicator();
-                const responses = currentMode === 'basic' ? sampleResponses.basic : sampleResponses.superSmart;
-                const response = responses[Math.floor(Math.random() * responses.length)];
                 addCelestiaMessage(response);
-            }, currentMode === 'basic' ? 1000 : 2500);
+            }, currentMode === 'basic' ? 500 : 1000);
         }
 
         // Send Button
