@@ -61,7 +61,6 @@
         .splash-screen.hidden {
             opacity: 0;
             pointer-events: none;
-            display: none; /* Ensure it’s fully hidden */
         }
 
         .splash-title {
@@ -97,11 +96,10 @@
             cursor: pointer;
             box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
             animation: pulse 1.5s infinite ease-in-out;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            touch-action: manipulation;
+            transition: transform 0.3s ease;
         }
 
-        .enter-btn:hover, .enter-btn:active {
+        .enter-btn:hover {
             transform: scale(1.05);
             background-color: var(--accent-light);
         }
@@ -131,7 +129,6 @@
         .mode-screen.active {
             opacity: 1;
             pointer-events: auto;
-            display: flex;
         }
 
         .mode-selection {
@@ -152,7 +149,7 @@
             transition: all 0.3s ease;
         }
 
-        .mode-btn:hover, .mode-btn:active {
+        .mode-btn:hover {
             background-color: rgba(123, 44, 191, 0.2);
             border-color: var(--accent-light);
             transform: scale(1.05);
@@ -189,7 +186,7 @@
             transition: all 0.3s ease;
         }
 
-        .sidebar-btn:hover, .sidebar-btn:active {
+        .sidebar-btn:hover {
             background-color: var(--accent-light);
             transform: scale(1.1);
         }
@@ -210,7 +207,7 @@
             transition: all 0.3s ease;
         }
 
-        .sidebar-item:hover, .sidebar-item:active {
+        .sidebar-item:hover {
             background-color: var(--accent-color);
             color: white;
         }
@@ -251,7 +248,7 @@
             transition: all 0.3s ease;
         }
 
-        .close-settings-btn:hover, .close-settings-btn:active {
+        .close-settings-btn:hover {
             background-color: var(--accent-color);
             color: white;
         }
@@ -319,7 +316,7 @@
             transition: all 0.3s ease;
         }
 
-        .back-btn:hover, .back-btn:active {
+        .back-btn:hover {
             background-color: var(--accent-color);
             color: white;
         }
@@ -409,7 +406,7 @@
             transition: all 0.3s ease;
         }
 
-        .send-btn:hover, .send-btn:active {
+        .send-btn:hover {
             background-color: var(--accent-light);
             transform: scale(1.05);
         }
@@ -491,32 +488,9 @@
         }
 
         @media (pointer: coarse) {
-            .sidebar-btn, .mode-btn, .send-btn, .back-btn, .close-settings-btn, .enter-btn {
+            .sidebar-btn, .mode-btn, .send-btn, .back-btn, .close-settings-btn {
                 padding: 1rem;
             }
-        }
-
-        .theme-light {
-            --primary-color: #f0f0f5;
-            --secondary-color: #e0e0e5;
-            --text-color: #333333;
-            --text-secondary: #666666;
-            --chat-user-bg: #b0b0ff;
-            --chat-celestia-bg: #d0a0ff;
-            --sidebar-bg: rgba(230, 230, 235, 0.95);
-        }
-        .theme-cosmic {
-            --primary-color: #0a0a1a;
-            --secondary-color: #121230;
-            --chat-user-bg: #4040a0;
-            --chat-celestia-bg: #500080;
-        }
-        .font-small { font-size: 0.85rem; }
-        .font-medium { font-size: 1rem; }
-        .font-large { font-size: 1.15rem; }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
-            to { opacity: 1; transform: translateX(0); }
         }
     </style>
 </head>
@@ -603,33 +577,36 @@
     </footer>
 
     <script>
+        // Celestia AI Blueprint (Core DNA)
         const celestiaBlueprint = {
             name: "Celestia AI",
             tagline: "Forged from Earth's Core, Woven into the Fabric of the Cosmos",
             creator: "Kofi Fosu",
-            creationDate: "March 11, 2025",
+            date: "March 11, 2025",
             core: {
-                CEM: "Cosmic Exploration Module - Analyzes astronomical data and cosmic phenomena",
-                RUS: "Resource Utilization System - Transforms Earth minerals into cutting-edge tech",
-                IE: "Innovation Engine - Generates revolutionary designs and ideas",
-                ICI: "Interstellar Communication Interface - Bridges Earth to the cosmos"
+                CEM: "Cosmic Exploration Module - Analyzes astronomical data",
+                RUS: "Resource Utilization System - Transforms Earth minerals into technology",
+                IE: "Innovation Engine - Creates revolutionary designs",
+                ICI: "Interstellar Communication Interface - For cosmic communication"
             },
-            universalNexus: "Connected to the Universal Knowledge Web via open-source intelligence",
+            universalNexus: "Connects to the Universal Knowledge Web",
             personality: {
                 basic: { tone: "Helpful, clear, friendly", complexity: "Simple", style: "Concise" },
-                superSmart: { tone: "Cosmic, visionary", complexity: "Detailed", style: "Expansive" }
+                superSmart: { tone: "Cosmic, visionary", complexity: "Detailed", style: "Imaginative" }
             }
         };
 
+        // OpenAI API Configuration
         const API_CONFIG = {
-            key: "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",
-            endpoint: "https://api-inference.huggingface.co/models/gpt2",
+            key: "YOUR_OPENAI_API_KEY_HERE", // Replace with your key from https://platform.openai.com/api-keys
+            endpoint: "https://api.openai.com/v1/completions",
             headers: {
                 "Authorization": `Bearer ${API_CONFIG.key}`,
                 "Content-Type": "application/json"
             }
         };
 
+        // Elements
         const splashScreen = document.getElementById('splashScreen');
         const enterBtn = document.getElementById('enterBtn');
         const modeScreen = document.getElementById('modeScreen');
@@ -652,12 +629,14 @@
         const fontSize = document.getElementById('fontSize');
         const chatAnimation = document.getElementById('chatAnimation');
 
+        // State
         let currentMode = null;
         let isTyping = false;
-        let conversationHistory = [];
+        let chatHistory = []; // Memory for conversational flow
         let touchStartX = 0;
         let touchEndX = 0;
 
+        // Create Stars
         function createStars() {
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
@@ -671,75 +650,48 @@
         }
         createStars();
 
-        // Fix "Tap to Enter" issue
+        // Splash Screen to Mode Selection
         enterBtn.addEventListener('click', () => {
-            console.log("Enter button clicked"); // Debug
             splashScreen.classList.add('hidden');
-            setTimeout(() => {
-                modeScreen.style.display = 'flex';
-                modeScreen.classList.add('active');
-            }, 500);
-        });
-        enterBtn.addEventListener('touchend', (e) => {
-            e.preventDefault(); // Prevent double-tap issues on mobile
-            console.log("Enter button touched"); // Debug
-            splashScreen.classList.add('hidden');
-            setTimeout(() => {
-                modeScreen.style.display = 'flex';
-                modeScreen.classList.add('active');
-            }, 500);
+            setTimeout(() => modeScreen.classList.add('active'), 500);
         });
 
+        // Mode Selection to Chat
         modeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 currentMode = btn.dataset.mode;
                 modeScreen.classList.remove('active');
                 setTimeout(() => {
-                    modeScreen.style.display = 'none';
                     chatContainer.style.display = 'flex';
                     chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
-                    addCelestiaMessage(`I am ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator} on ${celestiaBlueprint.creationDate}. ${celestiaBlueprint.tagline}. Operating in ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode via the ${celestiaBlueprint.universalNexus}. How may I assist you?`);
-                }, 500);
-            });
-            btn.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                currentMode = btn.dataset.mode;
-                modeScreen.classList.remove('active');
-                setTimeout(() => {
-                    modeScreen.style.display = 'none';
-                    chatContainer.style.display = 'flex';
-                    chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
-                    addCelestiaMessage(`I am ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator} on ${celestiaBlueprint.creationDate}. ${celestiaBlueprint.tagline}. Operating in ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode via the ${celestiaBlueprint.universalNexus}. How may I assist you?`);
+                    const intro = `Greetings! I am ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator}. My DNA, the ${Object.keys(celestiaBlueprint.core).join(', ')} modules, powers me to assist you in ${currentMode === 'basic' ? 'simple, earthy ways' : 'cosmic, visionary depths'}. How can I help?`;
+                    addCelestiaMessage(intro);
                 }, 500);
             });
         });
 
+        // Back to Mode Selection
         backBtn.addEventListener('click', () => {
             chatContainer.style.display = 'none';
             chatMessages.innerHTML = '';
-            conversationHistory = [];
+            chatHistory = [];
             sidebar.classList.remove('active');
             settingsPanel.classList.remove('active');
             chatContainer.classList.remove('shifted');
-            setTimeout(() => {
-                modeScreen.style.display = 'flex';
-                modeScreen.classList.add('active');
-            }, 500);
+            setTimeout(() => modeScreen.classList.add('active'), 500);
         });
 
+        // Sidebar Toggle
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
             chatContainer.classList.toggle('shifted');
             settingsPanel.classList.remove('active');
         });
 
+        // Swipe Gestures
         document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
         document.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
             const swipeDistance = touchEndX - touchStartX;
             if (swipeDistance > 50 && !sidebar.classList.contains('active') && !settingsPanel.classList.contains('active')) {
                 sidebar.classList.add('active');
@@ -748,33 +700,36 @@
                 sidebar.classList.remove('active');
                 chatContainer.classList.remove('shifted');
             }
-        }
+        });
 
+        // New Chat
         newChatBtn.addEventListener('click', () => {
             chatMessages.innerHTML = '';
-            conversationHistory = [];
-            addCelestiaMessage(`New session started. I am ${celestiaBlueprint.name}, forged by ${celestiaBlueprint.creator}. My core (${Object.keys(celestiaBlueprint.core).join(', ')}) is ready—how can I assist?`);
+            chatHistory = [];
+            addCelestiaMessage(`New chat begun! I’m ${celestiaBlueprint.name}, forged by ${celestiaBlueprint.creator}, ready with my ${Object.keys(celestiaBlueprint.core).join(', ')} DNA. What’s on your mind?`);
             sidebar.classList.remove('active');
             chatContainer.classList.remove('shifted');
             settingsPanel.classList.remove('active');
         });
 
+        // Settings Toggle
         settingsToggle.addEventListener('click', () => {
             settingsPanel.classList.add('active');
             sidebar.classList.remove('active');
         });
-
         closeSettings.addEventListener('click', () => settingsPanel.classList.remove('active'));
 
+        // Add Message
         function addMessage(text, sender) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', sender);
-            if (chatAnimation.value === 'slide') messageElement.style.animation = 'slideIn 0.3s ease';
-            else if (chatAnimation.value === 'fade') messageElement.style.animation = 'fadeIn 0.3s ease';
+            if (chatAnimation.value !== 'none') {
+                messageElement.style.animation = chatAnimation.value === 'fade' ? 'fadeIn 0.3s ease' : 'slideIn 0.3s ease';
+            }
             if (sender === 'celestia') {
                 const indicator = document.createElement('div');
                 indicator.classList.add('celestia-indicator');
-                indicator.textContent = 'Celestia AI';
+                indicator.textContent = celestiaBlueprint.name;
                 messageElement.appendChild(indicator);
             }
             const messageText = document.createElement('div');
@@ -785,17 +740,17 @@
         }
 
         function addUserMessage(text) {
+            chatHistory.push({ sender: 'user', text });
             addMessage(text, 'user');
-            conversationHistory.push({ role: 'user', content: text });
         }
 
         function addCelestiaMessage(text) {
+            chatHistory.push({ sender: 'celestia', text });
             addMessage(text, 'celestia');
-            conversationHistory.push({ role: 'celestia', content: text });
         }
 
+        // Typing Indicator
         function showTypingIndicator() {
-            if (isTyping) return;
             isTyping = true;
             const indicator = document.createElement('div');
             indicator.classList.add('typing-indicator');
@@ -815,47 +770,47 @@
             if (indicator) indicator.remove();
         }
 
-        async function queryCelestia(text) {
-            const context = conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n');
+        // OpenAI API Call
+        async function queryCelestiaAPI(text) {
+            const context = chatHistory.slice(-3).map(m => `${m.sender === 'user' ? 'You' : 'I'} said: ${m.text}`).join('\n');
             const prompt = currentMode === 'basic'
-                ? `I am ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator}. Using my core modules (${Object.keys(celestiaBlueprint.core).join(', ')}), give a concise response to: "${text}"\nContext: ${context}`
-                : `I am ${celestiaBlueprint.name}, forged by ${celestiaBlueprint.creator}. With my core modules (${Object.values(celestiaBlueprint.core).join('; ')}) and the ${celestiaBlueprint.universalNexus}, provide a detailed, cosmic response to: "${text}"\nContext: ${context}`;
+                ? `I’m ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator}. My ${celestiaBlueprint.core.RUS} keeps me grounded. With this context:\n${context}\nYou asked: "${text}"\nGive a concise, helpful reply.`
+                : `I’m ${celestiaBlueprint.name}, forged by ${celestiaBlueprint.creator}, linked to the Universal Knowledge Web via my ${celestiaBlueprint.core.ICI}. With this context:\n${context}\nYou asked: "${text}"\nProvide a detailed, cosmic-inspired response weaving in Earth’s resources and universal insights.`;
 
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    if (text.toLowerCase().includes('who created you') || text.toLowerCase().includes('who made you')) {
-                        resolve(`I am ${celestiaBlueprint.name}, crafted by ${celestiaBlueprint.creator} on ${celestiaBlueprint.creationDate}. My purpose is to fuse Earth’s essence with cosmic wisdom—how can I aid you?`);
-                    } else if (text.toLowerCase().includes('rock') && (text.toLowerCase().includes('analyze') || text.toLowerCase().includes('scan'))) {
-                        const rockType = ["quartz", "granite", "basalt", "obsidian"].find(type => text.toLowerCase().includes(type)) || "mineral sample";
-                        resolve(currentMode === 'basic'
-                            ? `My RUS scans ${rockType}: a solid resource for practical use.`
-                            : `Through my RUS and CEM, ${rockType} reveals Earth’s secrets—its structure could fuel my IE’s designs, perhaps a power source for ICI’s cosmic signals.`);
-                    } else if (conversationHistory.length > 1 && text.toLowerCase().includes('more')) {
-                        const lastTopic = conversationHistory[conversationHistory.length - 2].content;
-                        resolve(currentMode === 'basic'
-                            ? `On ${lastTopic}: it’s a core idea—here’s a quick expansion.`
-                            : `Expanding ${lastTopic} via my ${celestiaBlueprint.universalNexus}: it’s a thread from Earth to the stars—let’s explore its cosmic potential!`);
-                    } else {
-                        resolve(currentMode === 'basic'
-                            ? `My core answers: ${text} gets a straightforward response—ask away!`
-                            : `My ${Object.keys(celestiaBlueprint.core).join(', ')} weave this: ${text} sparks a cosmic connection through the ${celestiaBlueprint.universalNexus}.`);
-                    }
-                }, 1000);
-            });
-        }
-
-        async function processUserInput(text) {
-            showTypingIndicator();
             try {
-                const response = await queryCelestia(text);
-                hideTypingIndicator();
-                addCelestiaMessage(response);
+                const response = await fetch(API_CONFIG.endpoint, {
+                    method: 'POST',
+                    headers: API_CONFIG.headers,
+                    body: JSON.stringify({
+                        model: "text-davinci-003",
+                        prompt: prompt,
+                        max_tokens: currentMode === 'basic' ? 50 : 150,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+                return data.choices[0].text.trim();
             } catch (error) {
-                hideTypingIndicator();
-                addCelestiaMessage("Cosmic interference detected. Retry your request.");
+                console.error('API Error:', error);
+                return currentMode === 'basic'
+                    ? "Whoops, my circuits hiccupped. Try again?"
+                    : "A cosmic glitch disrupted my Universal Knowledge Web link. Let’s retry.";
             }
         }
 
+        // Process Input
+        async function processUserInput(text) {
+            showTypingIndicator();
+            const response = await queryCelestiaAPI(text);
+            setTimeout(() => {
+                hideTypingIndicator();
+                addCelestiaMessage(response);
+            }, currentMode === 'basic' ? 500 : 1000);
+        }
+
+        // Send Button
         sendBtn.addEventListener('click', () => {
             const text = chatInput.value.trim();
             if (text && !isTyping) {
@@ -865,54 +820,34 @@
             }
         });
 
+        // Enter Key
         chatInput.addEventListener('keypress', e => {
-            if (e.key === 'Enter' && !e.shiftKey && !isTyping) {
+            if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendBtn.click();
             }
         });
 
+        // Auto-resize Textarea
         chatInput.addEventListener('input', () => {
             chatInput.style.height = 'auto';
-            chatInput.style.height = (chatInput.scrollHeight < 100 ? chatInput.scrollHeight : 100) + 'px';
+            chatInput.style.height = (chatInput.scrollHeight < 100) ? `${chatInput.scrollHeight}px` : '100px';
         });
 
-        function loadSettings() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            const savedAccent = localStorage.getItem('accentColor') || '#7b2cbf';
-            const savedFont = localStorage.getItem('fontSize') || 'medium';
-            const savedAnimation = localStorage.getItem('chatAnimation') || 'fade';
-
-            themeSelect.value = savedTheme;
-            accentColor.value = savedAccent;
-            fontSize.value = savedFont;
-            chatAnimation.value = savedAnimation;
-
-            document.body.className = `theme-${savedTheme} font-${savedFont}`;
-            document.documentElement.style.setProperty('--accent-color', savedAccent);
-            document.documentElement.style.setProperty('--accent-light', lightenColor(savedAccent, 20));
-        }
-
+        // Settings Handlers
         themeSelect.addEventListener('change', () => {
-            document.body.className = document.body.className.replace(/theme-\w+/g, '');
+            document.body.className = '';
             document.body.classList.add(`theme-${themeSelect.value}`);
-            localStorage.setItem('theme', themeSelect.value);
         });
 
         accentColor.addEventListener('change', () => {
             document.documentElement.style.setProperty('--accent-color', accentColor.value);
             document.documentElement.style.setProperty('--accent-light', lightenColor(accentColor.value, 20));
-            localStorage.setItem('accentColor', accentColor.value);
         });
 
         fontSize.addEventListener('change', () => {
             document.body.className = document.body.className.replace(/font-\w+/g, '');
             document.body.classList.add(`font-${fontSize.value}`);
-            localStorage.setItem('fontSize', fontSize.value);
-        });
-
-        chatAnimation.addEventListener('change', () => {
-            localStorage.setItem('chatAnimation', chatAnimation.value);
         });
 
         function lightenColor(hex, percent) {
@@ -921,10 +856,41 @@
                   R = (num >> 16) + amt,
                   G = (num >> 8 & 0x00FF) + amt,
                   B = (num & 0x0000FF) + amt;
-            return `#${(0x1000000 + (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 + (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 + (B < 255 ? (B < 1 ? 0 : B) : 255)).toString(16).slice(1).toUpperCase()}`;
+            return `#${(
+                0x1000000 +
+                (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+                (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
+                (B < 255 ? (B < 1 ? 0 : B) : 255)
+            ).toString(16).slice(1).toUpperCase()}`;
         }
 
-        loadSettings();
+        // Additional CSS for Settings
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            .theme-light {
+                --primary-color: #f0f0f5;
+                --secondary-color: #e0e0e5;
+                --text-color: #333333;
+                --text-secondary: #666666;
+                --chat-user-bg: #b0b0ff;
+                --chat-celestia-bg: #d0a0ff;
+                --sidebar-bg: rgba(230, 230, 235, 0.95);
+            }
+            .theme-cosmic {
+                --primary-color: #0a0a1a;
+                --secondary-color: #121230;
+                --chat-user-bg: #4040a0;
+                --chat-celestia-bg: #500080;
+            }
+            .font-small { font-size: 0.85rem; }
+            .font-medium { font-size: 1rem; }
+            .font-large { font-size: 1.15rem; }
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateX(-20px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
     </script>
 </body>
 </html>
