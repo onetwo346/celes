@@ -72,6 +72,9 @@
             cursor: pointer;
             box-shadow: 0 0 15px #00ccff;
             transition: transform 0.3s;
+            /* Added these properties to make it more tappable */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .entry-portal:hover { transform: scale(1.1); }
         footer {
@@ -106,6 +109,9 @@
             cursor: pointer;
             text-align: center;
             transition: all 0.3s;
+            /* Added these properties to make it more tappable */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .mode.basic {
             background: linear-gradient(90deg, #00ff00, #004d00);
@@ -145,6 +151,9 @@
             color: #e6e6e6;
             text-shadow: 0 0 5px #00ccff;
             transition: transform 0.3s;
+            /* Added these properties to make it more tappable */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .glyph:hover { transform: scale(1.2); }
         .settings-orbit {
@@ -216,6 +225,9 @@
             color: #00ccff;
             text-shadow: 0 0 5px #00ccff;
             animation: pulseSend 1s infinite;
+            /* Added these properties to make it more tappable */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         @keyframes pulseSend {
             0%, 100% { transform: scale(1); }
@@ -229,6 +241,9 @@
             cursor: pointer;
             color: #ffcc00;
             text-shadow: 0 0 5px #ffcc00;
+            /* Added these properties to make it more tappable */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         /* Responsive Design */
@@ -259,21 +274,21 @@
         <div class="cosmic-orb"></div>
         <h1 class="title">Celestia AI</h1>
         <p class="subtitle">The Smartest Mind on Earth, Woven to the Cosmos</p>
-        <div class="entry-portal" onclick="enterCosmos()">Enter the Cosmos</div>
+        <div class="entry-portal" id="cosmos-entry">Enter the Cosmos</div>
         <footer>Designed by Kofi Fosu | cosmoscoderr@gmail.com</footer>
     </div>
 
     <div id="options-page" class="page">
         <div class="mode-selector">
-            <div class="mode basic" onclick="selectMode('basic')">Basic Nexus</div>
-            <div class="mode super-smart" onclick="selectMode('super-smart')">Super Cosmic</div>
+            <div class="mode basic" id="basic-mode">Basic Nexus</div>
+            <div class="mode super-smart" id="smart-mode">Super Cosmic</div>
         </div>
     </div>
 
     <div id="chat-page" class="page">
         <div class="sidebar">
-            <div class="glyph" onclick="newChat()">✧</div>
-            <div class="glyph" onclick="toggleSettings()">⚙</div>
+            <div class="glyph" id="new-chat">✧</div>
+            <div class="glyph" id="settings-toggle">⚙</div>
             <div class="settings-orbit" id="settings-orbit">
                 <label><input type="checkbox" id="voice"> Voice</label>
                 <input type="range" id="aesthetic" min="0" max="100" value="50">
@@ -282,9 +297,9 @@
         <div class="chat-container" id="chat-container"></div>
         <div class="input-hologram">
             <textarea id="user-input" placeholder="Ask the Cosmos..."></textarea>
-            <div class="send-pulse" onclick="sendMessage()">▷</div>
+            <div class="send-pulse" id="send-button">▷</div>
         </div>
-        <div class="return-shard" onclick="goBack()">⟲</div>
+        <div class="return-shard" id="back-button">⟲</div>
     </div>
 
     <script>
@@ -306,7 +321,7 @@
                 };
                 const rockMatch = input.toLowerCase().match(/\b(granite|quartz|basalt|obsidian)\b/);
                 const lastRock = history.length ? history[history.length - 1].user.match(/\b(granite|quartz|basalt|obsidian)\b/) : null;
-                return rockMatch ? `Earth’s gift: ${rockMatch[0]}. Blueprint: ${rocks[rockMatch[0]]}` : 
+                return rockMatch ? `Earth's gift: ${rockMatch[0]}. Blueprint: ${rocks[rockMatch[0]]}` : 
                     lastRock ? `No new rock. For ${lastRock[0]}: ${rocks[lastRock[0]]}` : 
                     "Specify a rock (granite, quartz, basalt, obsidian) for invention.";
             },
@@ -314,20 +329,20 @@
                 const inventions = ["zero-point energy core", "anti-gravity propulsor", "self-healing nanosteel", "wormhole stabilizer"];
                 const invention = inventions[Math.floor(Math.random() * inventions.length)];
                 return history.length ? 
-                    `From "${history[history.length - 1].user}": Crafting ${invention} with Earth’s essence.` : 
+                    `From "${history[history.length - 1].user}": Crafting ${invention} with Earth's essence.` : 
                     `Inspired by "${input}": Designing ${invention}—blueprint synthesizing now.`;
             },
             interstellarComm: (input, history) => {
                 return history.length ? 
                     `Echoing "${history[history.length - 1].user}": Transmitting "${input}" via crystal harmonics.` : 
-                    `Encoding "${input}" into a galactic signal—sent through Earth’s mineral arrays.`;
+                    `Encoding "${input}" into a galactic signal—sent through Earth's mineral arrays.`;
             },
             universalNexus: (input, history) => {
                 const insights = [
-                    "The cosmos resonates at 7.83 Hz—Earth’s heartbeat aligns.",
+                    "The cosmos resonates at 7.83 Hz—Earth's heartbeat aligns.",
                     "Dark matter threads weave through quartz lattices.",
                     "A billion-year-old star whispers your name.",
-                    "Invention is the universe’s language—you’re fluent."
+                    "Invention is the universe's language—you're fluent."
                 ];
                 const insight = insights[Math.floor(Math.random() * insights.length)];
                 return history.length ? 
@@ -336,8 +351,8 @@
             },
             inventionSoul: (input, history) => {
                 return history.length ? 
-                    `Your vision "${history[history.length - 1].user}" fuels me. Let’s invent: What’s next?` : 
-                    `I’m here to build your dreams, Kofi. "${input}"—how do we shape it into reality?`;
+                    `Your vision "${history[history.length - 1].user}" fuels me. Let's invent: What's next?` : 
+                    `I'm here to build your dreams, Kofi. "${input}"—how do we shape it into reality?`;
             }
         };
 
@@ -352,6 +367,7 @@
 
         // Navigation
         function enterCosmos() {
+            console.log("Entering cosmos"); // Debug log
             document.getElementById("intro-page").classList.remove("active");
             document.getElementById("options-page").classList.add("active");
         }
@@ -419,7 +435,7 @@
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                            inputs: `${dnaResponse} Enhance this with cosmic insight or practical steps for Kofi’s inventions.`,
+                            inputs: `${dnaResponse} Enhance this with cosmic insight or practical steps for Kofi's inventions.`,
                             parameters: { max_length: 100, temperature: 0.9 }
                         })
                     });
@@ -453,11 +469,75 @@
             orbit.style.display = orbit.style.display === "block" ? "none" : "block";
         }
 
-        document.getElementById("aesthetic").addEventListener("input", (e) => {
-            const value = e.target.value;
-            document.body.style.filter = `hue-rotate(${value * 3.6}deg)`;
-            document.querySelector(".input-hologram").style.background = 
-                `linear-gradient(90deg, #${Math.floor(value * 2.55).toString(16).padStart(2, '0')}4500, #1a002b)`;
+        // Event Listeners
+        document.addEventListener("DOMContentLoaded", function() {
+            // Entry portal click event
+            document.getElementById("cosmos-entry").addEventListener("click", enterCosmos);
+            document.getElementById("cosmos-entry").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                enterCosmos();
+            });
+            
+            // Mode selection
+            document.getElementById("basic-mode").addEventListener("click", function() {
+                selectMode("basic");
+            });
+            document.getElementById("basic-mode").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                selectMode("basic");
+            });
+            
+            document.getElementById("smart-mode").addEventListener("click", function() {
+                selectMode("super-smart");
+            });
+            document.getElementById("smart-mode").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                selectMode("super-smart");
+            });
+            
+            // Back button
+            document.getElementById("back-button").addEventListener("click", goBack);
+            document.getElementById("back-button").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                goBack();
+            });
+            
+            // New chat
+            document.getElementById("new-chat").addEventListener("click", newChat);
+            document.getElementById("new-chat").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                newChat();
+            });
+            
+            // Settings toggle
+            document.getElementById("settings-toggle").addEventListener("click", toggleSettings);
+            document.getElementById("settings-toggle").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                toggleSettings();
+            });
+            
+            // Send button
+            document.getElementById("send-button").addEventListener("click", sendMessage);
+            document.getElementById("send-button").addEventListener("touchend", function(e) {
+                e.preventDefault();
+                sendMessage();
+            });
+            
+            // Aesthetic slider
+            document.getElementById("aesthetic").addEventListener("input", function(e) {
+                const value = e.target.value;
+                document.body.style.filter = `hue-rotate(${value * 3.6}deg)`;
+                document.querySelector(".input-hologram").style.background = 
+                    `linear-gradient(90deg, #${Math.floor(value * 2.55).toString(16).padStart(2, '0')}4500, #1a002b)`;
+            });
+            
+            // User input enter key
+            document.getElementById("user-input").addEventListener("keypress", function(e) {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
         });
     </script>
 </body>
