@@ -27,6 +27,7 @@
             font-family: -apple-system, 'Segoe UI', Tahoma, sans-serif;
             -webkit-font-smoothing: antialiased;
             -webkit-tap-highlight-color: transparent;
+            user-select: none; /* Prevent text selection on mobile */
         }
 
         body {
@@ -39,6 +40,7 @@
             overflow-x: hidden;
             display: flex;
             position: relative;
+            touch-action: manipulation; /* Optimize touch events */
         }
 
         /* Splash Screen */
@@ -236,6 +238,24 @@
             font-size: 1.5rem;
             color: var(--accent-light);
             margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-settings-btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-settings-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
         }
 
         .settings-item {
@@ -478,7 +498,7 @@
         }
 
         @media (pointer: coarse) {
-            .sidebar-btn, .mode-btn, .send-btn, .back-btn {
+            .sidebar-btn, .mode-btn, .send-btn, .back-btn, .close-settings-btn {
                 padding: 1rem;
             }
         }
@@ -499,7 +519,10 @@
 
     <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
-        <h2 class="settings-header">Settings</h2>
+        <div class="settings-header">
+            <span>Settings</span>
+            <button class="close-settings-btn" id="closeSettings">Close</button>
+        </div>
         <div class="settings-item">
             <label>Theme</label>
             <select id="themeSelect">
@@ -615,6 +638,7 @@
         const newChatBtn = document.getElementById('newChat');
         const settingsToggle = document.getElementById('settingsToggle');
         const settingsPanel = document.getElementById('settingsPanel');
+        const closeSettings = document.getElementById('closeSettings');
         const backBtn = document.getElementById('backBtn');
         const chatTitle = document.getElementById('chatTitle');
 
@@ -627,6 +651,8 @@
         // Variables
         let currentMode = null;
         let isTyping = false;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         // Create Stars
         function createStars() {
@@ -679,7 +705,31 @@
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
             chatContainer.classList.toggle('shifted');
+            settingsPanel.classList.remove('active'); // Close settings if open
         });
+
+        // Swipe Gestures for Sidebar
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndX - touchStartX;
+            if (swipeDistance > 50 && !sidebar.classList.contains('active') && !settingsPanel.classList.contains('active')) {
+                // Swipe right to open sidebar
+                sidebar.classList.add('active');
+                chatContainer.classList.add('shifted');
+            } else if (swipeDistance < -50 && sidebar.classList.contains('active')) {
+                // Swipe left to close sidebar
+                sidebar.classList.remove('active');
+                chatContainer.classList.remove('shifted');
+            }
+        }
 
         // New Chat
         newChatBtn.addEventListener('click', () => {
@@ -687,12 +737,18 @@
             addCelestiaMessage(`New chat started in ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. How can I assist you now?`);
             sidebar.classList.remove('active');
             chatContainer.classList.remove('shifted');
+            settingsPanel.classList.remove('active');
         });
 
         // Settings Toggle
         settingsToggle.addEventListener('click', () => {
-            settingsPanel.classList.toggle('active');
+            settingsPanel.classList.add('active');
             sidebar.classList.remove('active');
+        });
+
+        // Close Settings
+        closeSettings.addEventListener('click', () => {
+            settingsPanel.classList.remove('active');
         });
 
         // Add Message
