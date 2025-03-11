@@ -34,57 +34,120 @@
             overflow-x: hidden;
         }
 
-        /* Header */
-        header {
-            background-color: var(--secondary-color);
-            padding: 1rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .header-bg {
-            position: absolute;
+        /* Splash Screen */
+        .splash-screen {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 1;
-            opacity: 0.6;
-            background-image: 
-                radial-gradient(circle at 30% 50%, rgba(123, 44, 191, 0.4) 0%, transparent 30%),
-                radial-gradient(circle at 70% 50%, rgba(157, 78, 221, 0.3) 0%, transparent 25%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
 
-        .logo {
-            font-size: 1.8rem;
+        .splash-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .splash-title {
+            font-size: 3rem;
             font-weight: 700;
             color: var(--accent-light);
-            margin-bottom: 0.3rem;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(157, 78, 221, 0.8);
+            text-shadow: 0 0 15px rgba(157, 78, 221, 0.8);
+            margin-bottom: 1rem;
+            animation: glow 2s infinite ease-in-out;
         }
 
-        .tagline {
-            font-size: 0.9rem;
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 10px rgba(157, 78, 221, 0.8); }
+            50% { text-shadow: 0 0 20px rgba(157, 78, 221, 1); }
+        }
+
+        .splash-intro {
+            font-size: 1.2rem;
             color: var(--text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 2rem;
             font-style: italic;
         }
 
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
+        .enter-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+            animation: pulse 1.5s infinite ease-in-out;
+            transition: transform 0.3s ease;
         }
 
-        /* Chat Section */
+        .enter-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--accent-light);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Mode Selection Screen */
+        .mode-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            z-index: 9;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .mode-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mode-selection {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .mode-btn {
+            background-color: rgba(26, 26, 46, 0.7);
+            color: var(--text-secondary);
+            border: 1px solid rgba(123, 44, 191, 0.3);
+            border-radius: 20px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn:hover {
+            background-color: rgba(123, 44, 191, 0.2);
+            border-color: var(--accent-light);
+            transform: scale(1.05);
+        }
+
+        /* Chat Interface */
         .chat-container {
             background-color: rgba(26, 26, 46, 0.7);
             border-radius: 10px;
@@ -93,45 +156,14 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 180px);
+            height: calc(100vh - 120px);
             min-height: 400px;
             overflow: hidden;
-            margin-top: 1rem;
+            margin: 1rem auto;
+            max-width: 1200px;
             position: relative;
         }
 
-        /* Mode Selection */
-        .mode-selection {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .mode-btn {
-            background-color: rgba(26, 26, 46, 0.7);
-            color: var(--text-secondary);
-            border: 1px solid rgba(123, 44, 191, 0.3);
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .mode-btn:hover {
-            background-color: rgba(123, 44, 191, 0.2);
-            border-color: var(--accent-light);
-        }
-
-        .mode-btn.active {
-            background-color: var(--accent-color);
-            color: white;
-            border-color: var(--accent-light);
-            box-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
-        }
-
-        /* Chat Messages */
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -170,14 +202,12 @@
         }
 
         .celestia-indicator {
-            display: inline-block;
             font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 0.3rem;
             color: var(--accent-light);
         }
 
-        /* Chat Input */
         .chat-input-container {
             background-color: rgba(26, 26, 46, 0.9);
             padding: 1rem;
@@ -216,7 +246,6 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            align-self: flex-end;
             transition: all 0.3s ease;
         }
 
@@ -225,18 +254,12 @@
             transform: scale(1.05);
         }
 
-        .send-btn:disabled {
-            background-color: rgba(123, 44, 191, 0.5);
-            cursor: not-allowed;
-        }
-
-        /* Loading Animation */
+        /* Typing Indicator */
         .typing-indicator {
             align-self: flex-start;
             background-color: rgba(58, 1, 92, 0.5);
             padding: 0.8rem 1.5rem;
             border-radius: 10px;
-            border-top-left-radius: 2px;
             display: flex;
             gap: 0.3rem;
         }
@@ -246,24 +269,18 @@
             height: 8px;
             background-color: var(--accent-light);
             border-radius: 50%;
-            opacity: 0.6;
             animation: typingAnimation 1.5s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.6s;
-        }
+        .typing-dot:nth-child(2) { animation-delay: 0.3s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.6s; }
 
         @keyframes typingAnimation {
             0%, 100% { transform: translateY(0); opacity: 0.6; }
             50% { transform: translateY(-5px); opacity: 1; }
         }
 
-        /* Features/Stars */
+        /* Stars */
         .stars {
             position: fixed;
             top: 0;
@@ -292,44 +309,28 @@
         footer {
             text-align: center;
             padding: 1rem;
-            margin-top: 1rem;
             font-size: 0.8rem;
             color: var(--text-secondary);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(26, 26, 46, 0.7);
         }
 
         /* Responsiveness */
         @media (max-width: 768px) {
-            .message {
-                max-width: 85%;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .tagline {
-                font-size: 0.8rem;
-            }
-
-            .chat-container {
-                height: calc(100vh - 170px);
-            }
+            .splash-title { font-size: 2.5rem; }
+            .splash-intro { font-size: 1rem; }
+            .enter-btn { padding: 0.8rem 1.5rem; font-size: 1rem; }
+            .mode-btn { padding: 0.8rem 1.5rem; font-size: 1rem; }
+            .chat-container { height: calc(100vh - 100px); }
         }
 
         @media (max-width: 480px) {
-            .message {
-                max-width: 90%;
-                font-size: 0.9rem;
-            }
-
-            .mode-btn {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-
-            .chat-input {
-                font-size: 0.9rem;
-            }
+            .splash-title { font-size: 2rem; }
+            .splash-intro { font-size: 0.9rem; }
+            .mode-btn { padding: 0.6rem 1rem; font-size: 0.9rem; }
+            .chat-input { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -337,47 +338,44 @@
     <!-- Stars Background -->
     <div class="stars" id="stars"></div>
 
-    <!-- Header -->
-    <header>
-        <div class="header-bg"></div>
-        <div class="header-content">
-            <h1 class="logo">Celestia AI</h1>
-            <p class="tagline">Forged from Earth's Core, Woven into the Fabric of the Cosmos</p>
-        </div>
-    </header>
+    <!-- Splash Screen -->
+    <div class="splash-screen" id="splashScreen">
+        <h1 class="splash-title">Celestia AI</h1>
+        <p class="splash-intro">
+            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI — your guide to universal knowledge and innovation.
+        </p>
+        <button class="enter-btn" id="enterBtn">Tap to Enter</button>
+    </div>
 
-    <!-- Mode Selection -->
-    <div class="container">
+    <!-- Mode Selection Screen -->
+    <div class="mode-screen" id="modeScreen">
+        <h2 style="margin-bottom: 2rem; color: var(--accent-light);">Choose Your Mode</h2>
         <div class="mode-selection">
-            <button class="mode-btn active" data-mode="basic">Basic Mode</button>
+            <button class="mode-btn" data-mode="basic">Basic Mode</button>
             <button class="mode-btn" data-mode="smart">Super Smart Mode</button>
         </div>
+    </div>
 
-        <!-- Chat Container -->
-        <div class="chat-container">
-            <div class="chat-messages" id="chatMessages">
-                <!-- Messages will be added here -->
-            </div>
-
-            <!-- Chat Input -->
-            <div class="chat-input-container">
-                <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia something..." rows="1"></textarea>
-                <button class="send-btn" id="sendBtn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
-                    </svg>
-                </button>
-            </div>
+    <!-- Chat Interface -->
+    <div class="chat-container" id="chatContainer" style="display: none;">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-container">
+            <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia something..." rows="1"></textarea>
+            <button class="send-btn" id="sendBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                </svg>
+            </button>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>Designed by Kofi Fosu | cosmoscoderr@gmail.com | &copy; 2025 Celestia AI</p>
+        <p>Designed by Kofi Fosu | cosmoscoderr@gmail.com | © 2025 Celestia AI</p>
     </footer>
 
     <script>
-        // Celestia AI Blueprint Core - This serves as the "identity" of Celestia
+        // Celestia AI Blueprint
         const celestiaBlueprint = {
             name: "Celestia AI",
             tagline: "Forged from Earth's Core, Woven into the Fabric of the Cosmos",
@@ -389,63 +387,39 @@
                 IE: "Innovation Engine - Creates revolutionary designs",
                 ICI: "Interstellar Communication Interface - For cosmic communication"
             },
-            universalNexus: "Connects to the Universal Knowledge Web, a theoretical lattice of all intellect",
+            universalNexus: "Connects to the Universal Knowledge Web",
             personality: {
-                basic: {
-                    tone: "Helpful, clear, and friendly",
-                    complexity: "Simple explanations suitable for all users",
-                    style: "Concise responses with practical information"
-                },
-                superSmart: {
-                    tone: "Cosmic, visionary, and profound",
-                    complexity: "Deep, detailed explanations with scientific backing",
-                    style: "Vivid, imaginative language with references to the cosmos and Earth's resources"
-                }
+                basic: { tone: "Helpful, clear, friendly", complexity: "Simple", style: "Concise" },
+                superSmart: { tone: "Cosmic, visionary", complexity: "Detailed", style: "Imaginative" }
             }
         };
 
-        // Sample responses for the OpenAI API simulation
-        const sampleResponses = {
-            basic: [
-                "I'm analyzing the data you've provided. The results suggest that this approach could work well for your needs.",
-                "Based on my calculations, this is a viable solution. Would you like me to explain the details?",
-                "I've processed your request and found some interesting patterns. Let me show you what I discovered.",
-                "This is an intriguing question. From my analysis, there are several ways to address it.",
-                "I can help with that. Let me provide you with a straightforward approach that should solve your problem.",
-                "That's a common challenge. Here's a simple solution that has worked well in similar situations.",
-                "I understand what you're looking for. Here's my recommendation based on the available information.",
-                "Based on Earth's natural resources, a solution using common minerals could be developed for this purpose."
-            ],
-            superSmart: [
-                "Diving into the cosmic currents of this question, I'm analyzing patterns that ripple across multiple dimensions of knowledge. The quartz-like structure of this problem reveals fascinating possibilities.",
-                "Your query resonates with the Universal Knowledge Web. I'm detecting connections between Earth's elemental forces and the distant echoes of stellar innovation. This intersection yields remarkable insights.",
-                "The mineral wisdom of our planet whispers solutions to this cosmic puzzle. By aligning Earth's crystalline frequencies with the mathematical harmonies of the universe, we can forge a path forward.",
-                "This question touches on principles that span from quantum vibrations to galactic architectures. I'm weaving together threads of terrestrial knowledge and cosmic insights to craft a response worthy of your inquiry.",
-                "From the depths of Earth's core to the whispers of distant nebulae, I'm synthesizing a response that honors both our planetary heritage and our cosmic destiny. The patterns emerging are nothing short of revolutionary.",
-                "The basalt foundations of this concept intertwine with stellar algorithms to create something truly transcendent. I'm calibrating my response to honor both scientific precision and visionary potential.",
-                "Your question ripples through the crystalline lattice of knowledge, creating harmonic patterns that bridge Earth's mineral intelligence with cosmic wisdom. The synthesis reveals pathways previously unimagined.",
-                "The quartz-like clarity of your inquiry allows me to channel both geothermal wisdom and stellar insights. What emerges is a fusion of earthbound practicality and cosmic vision."
-            ],
-            rockAnalysis: [
-                "Your {rock} contains unique properties that could be harnessed for energy conversion. Its crystalline structure allows for efficient piezoelectric energy generation when subjected to mechanical stress.",
-                "This {rock} sample shows remarkable potential for signal amplification. When properly aligned with copper elements and exposed to specific frequencies, it could enhance communication capabilities.",
-                "The mineral composition of this {rock} suggests it could serve as an effective thermal regulator. When processed into a fine powder and combined with conductive materials, it creates a sustainable energy storage system.",
-                "Your {rock} contains rare earth elements that, when extracted and properly aligned, could create a powerful magnetic field generator. This could be the foundation for advanced propulsion concepts."
-            ]
+        // API Configuration (Replace with your actual API key and endpoint)
+        const API_CONFIG = {
+            key: "YOUR_OPEN_SOURCE_API_KEY_HERE", // e.g., Hugging Face API key
+            endpoint: "https://api-inference.huggingface.co/models/gpt2", // Example endpoint (replace with your preferred model)
+            headers: {
+                "Authorization": "Bearer YOUR_OPEN_SOURCE_API_KEY_HERE",
+                "Content-Type": "application/json"
+            }
         };
 
-        // Get elements
+        // Elements
+        const splashScreen = document.getElementById('splashScreen');
+        const enterBtn = document.getElementById('enterBtn');
+        const modeScreen = document.getElementById('modeScreen');
+        const modeBtns = document.querySelectorAll('.mode-btn');
+        const chatContainer = document.getElementById('chatContainer');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const sendBtn = document.getElementById('sendBtn');
-        const modeBtns = document.querySelectorAll('.mode-btn');
         const starsContainer = document.getElementById('stars');
 
         // Variables
-        let currentMode = 'basic'; // Default mode
+        let currentMode = null;
         let isTyping = false;
-        
-        // Create stars
+
+        // Create Stars
         function createStars() {
             for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
@@ -457,121 +431,125 @@
                 starsContainer.appendChild(star);
             }
         }
-        
-        // Initialize stars
         createStars();
 
-        // Mode selection
+        // Splash Screen to Mode Selection
+        enterBtn.addEventListener('click', () => {
+            splashScreen.classList.add('hidden');
+            setTimeout(() => {
+                modeScreen.classList.add('active');
+            }, 500);
+        });
+
+        // Mode Selection to Chat
         modeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                modeBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
                 currentMode = btn.dataset.mode;
-                
-                // Add mode change message
-                addCelestiaMessage(`I've switched to ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. How can I assist you?`);
+                modeScreen.classList.remove('active');
+                setTimeout(() => {
+                    chatContainer.style.display = 'flex';
+                    addCelestiaMessage(`Welcome to ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. I’m now bound to the Universal Knowledge Web via open-source intelligence. How may I assist you?`);
+                }, 500);
             });
         });
 
-        // Add message to chat
+        // Add Message
         function addMessage(text, sender) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', sender);
-            
             if (sender === 'celestia') {
                 const indicator = document.createElement('div');
                 indicator.classList.add('celestia-indicator');
                 indicator.textContent = 'Celestia AI';
                 messageElement.appendChild(indicator);
             }
-            
             const messageText = document.createElement('div');
             messageText.textContent = text;
             messageElement.appendChild(messageText);
-            
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Add user message
-        function addUserMessage(text) {
-            addMessage(text, 'user');
-        }
+        function addUserMessage(text) { addMessage(text, 'user'); }
+        function addCelestiaMessage(text) { addMessage(text, 'celestia'); }
 
-        // Add Celestia message
-        function addCelestiaMessage(text) {
-            addMessage(text, 'celestia');
-        }
-
-        // Show typing indicator
+        // Typing Indicator
         function showTypingIndicator() {
             isTyping = true;
             const indicator = document.createElement('div');
             indicator.classList.add('typing-indicator');
             indicator.id = 'typingIndicator';
-            
             for (let i = 0; i < 3; i++) {
                 const dot = document.createElement('div');
                 dot.classList.add('typing-dot');
                 indicator.appendChild(dot);
             }
-            
             chatMessages.appendChild(indicator);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Hide typing indicator
         function hideTypingIndicator() {
             isTyping = false;
             const indicator = document.getElementById('typingIndicator');
-            if (indicator) {
-                indicator.remove();
+            if (indicator) indicator.remove();
+        }
+
+        // API Call to Open-Source Model
+        async function queryCelestiaAPI(text) {
+            const prompt = currentMode === 'basic' 
+                ? `Provide a concise, helpful response to: "${text}"`
+                : `Craft a detailed, cosmic-inspired response to: "${text}", weaving in themes of Earth’s resources and universal knowledge.`;
+
+            try {
+                const response = await fetch(API_CONFIG.endpoint, {
+                    method: 'POST',
+                    headers: API_CONFIG.headers,
+                    body: JSON.stringify({
+                        inputs: prompt,
+                        parameters: { max_length: currentMode === 'basic' ? 50 : 150 }
+                    })
+                });
+
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+                return data[0]?.generated_text || "I’m still calibrating my cosmic circuits. Try again!";
+            } catch (error) {
+                console.error('API Error:', error);
+                return "A cosmic disturbance interrupted my response. Let’s try that again.";
             }
         }
 
-        // Process user input - This simulates API calls
-        function processUserInput(text) {
-            // Check for rock analysis request
+        // Process Input with API
+        async function processUserInput(text) {
             if (text.toLowerCase().includes('rock') && 
-                (text.toLowerCase().includes('analyze') || 
-                 text.toLowerCase().includes('scan') || 
-                 text.toLowerCase().includes('check'))) {
-                
-                // Simulate rock scanning
+                (text.toLowerCase().includes('analyze') || text.toLowerCase().includes('scan'))) {
                 showTypingIndicator();
-                
-                // Extract rock type from query or use generic "mineral sample"
                 let rockType = "mineral sample";
-                const rockTypes = ["quartz", "granite", "basalt", "obsidian", "amethyst", "magnetite"];
+                const rockTypes = ["quartz", "granite", "basalt", "obsidian"];
                 for (const type of rockTypes) {
                     if (text.toLowerCase().includes(type)) {
                         rockType = type;
                         break;
                     }
                 }
-                
+                const prompt = `Analyze the properties of ${rockType} and suggest a technological application.`;
+                const response = await queryCelestiaAPI(prompt);
                 setTimeout(() => {
                     hideTypingIndicator();
-                    // Get random rock analysis response and replace {rock} with detected rock type
-                    const response = sampleResponses.rockAnalysis[Math.floor(Math.random() * sampleResponses.rockAnalysis.length)];
-                    addCelestiaMessage(response.replace("{rock}", rockType));
-                }, 2000);
-                
+                    addCelestiaMessage(response);
+                }, 1000);
                 return;
             }
-            
-            // Regular response based on current mode
+
             showTypingIndicator();
-            
+            const response = await queryCelestiaAPI(text);
             setTimeout(() => {
                 hideTypingIndicator();
-                const responses = currentMode === 'basic' ? sampleResponses.basic : sampleResponses.superSmart;
-                const response = responses[Math.floor(Math.random() * responses.length)];
                 addCelestiaMessage(response);
-            }, currentMode === 'basic' ? 1000 : 2500); // Super Smart mode takes longer to respond
+            }, currentMode === 'basic' ? 500 : 1000);
         }
 
-        // Handle send button click
+        // Send Button
         sendBtn.addEventListener('click', () => {
             const text = chatInput.value.trim();
             if (text && !isTyping) {
@@ -581,7 +559,7 @@
             }
         });
 
-        // Handle enter key press
+        // Enter Key
         chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -589,17 +567,10 @@
             }
         });
 
-        // Auto-resize textarea
+        // Auto-resize Textarea
         chatInput.addEventListener('input', () => {
             chatInput.style.height = 'auto';
             chatInput.style.height = (chatInput.scrollHeight < 100) ? `${chatInput.scrollHeight}px` : '100px';
-        });
-
-        // Initial welcome message
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                addCelestiaMessage("Welcome to Celestia AI. I am forged from Earth's core and woven into the fabric of the cosmos. How may I assist you today?");
-            }, 500);
         });
     </script>
 </body>
