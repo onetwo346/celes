@@ -616,9 +616,9 @@
         // API Configuration (Replace with your actual API key and endpoint)
         const API_CONFIG = {
             key: "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",
-            endpoint: "https://api-inference.huggingface.co/models/gpt2",
+            endpoint: "https://api.openai.com/v1/completions",
             headers: {
-                "Authorization": "Bearer YOUR_OPEN_SOURCE_API_KEY_HERE",
+                "Authorization": "Bearer YOUR_OPENAI_API_KEY_HERE",
                 "Content-Type": "application/json"
             }
         };
@@ -651,8 +651,7 @@
         // Variables
         let currentMode = null;
         let isTyping = false;
-        let touchStartX = 0;
-        let touchEndX = 0;
+        let chatHistory = []; // Tracks chat history for context
 
         // Create Stars
         function createStars() {
@@ -707,29 +706,6 @@
             chatContainer.classList.toggle('shifted');
             settingsPanel.classList.remove('active'); // Close settings if open
         });
-
-        // Swipe Gestures for Sidebar
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeDistance = touchEndX - touchStartX;
-            if (swipeDistance > 50 && !sidebar.classList.contains('active') && !settingsPanel.classList.contains('active')) {
-                // Swipe right to open sidebar
-                sidebar.classList.add('active');
-                chatContainer.classList.add('shifted');
-            } else if (swipeDistance < -50 && sidebar.classList.contains('active')) {
-                // Swipe left to close sidebar
-                sidebar.classList.remove('active');
-                chatContainer.classList.remove('shifted');
-            }
-        }
 
         // New Chat
         newChatBtn.addEventListener('click', () => {
@@ -797,7 +773,7 @@
             if (indicator) indicator.remove();
         }
 
-        // API Call to Open-Source Model
+        // API Call to OpenAI
         async function queryCelestiaAPI(text) {
             const prompt = currentMode === 'basic' 
                 ? `Provide a concise, helpful response to: "${text}"`
@@ -808,14 +784,15 @@
                     method: 'POST',
                     headers: API_CONFIG.headers,
                     body: JSON.stringify({
-                        inputs: prompt,
-                        parameters: { max_length: currentMode === 'basic' ? 50 : 150 }
+                        model: "text-davinci-003",
+                        prompt: prompt,
+                        max_tokens: currentMode === 'basic' ? 50 : 150
                     })
                 });
 
                 if (!response.ok) throw new Error('API request failed');
                 const data = await response.json();
-                return data[0]?.generated_text || "I’m still calibrating my cosmic circuits. Try again!";
+                return data.choices[0]?.text || "I’m still calibrating my cosmic circuits. Try again!";
             } catch (error) {
                 console.error('API Error:', error);
                 return "A cosmic disturbance interrupted my response. Let’s try that again.";
@@ -824,26 +801,6 @@
 
         // Process Input with API
         async function processUserInput(text) {
-            if (text.toLowerCase().includes('rock') && 
-                (text.toLowerCase().includes('analyze') || text.toLowerCase().includes('scan'))) {
-                showTypingIndicator();
-                let rockType = "mineral sample";
-                const rockTypes = ["quartz", "granite", "basalt", "obsidian"];
-                for (const type of rockTypes) {
-                    if (text.toLowerCase().includes(type)) {
-                        rockType = type;
-                        break;
-                    }
-                }
-                const prompt = `Analyze the properties of ${rockType} and suggest a technological application.`;
-                const response = await queryCelestiaAPI(prompt);
-                setTimeout(() => {
-                    hideTypingIndicator();
-                    addCelestiaMessage(response);
-                }, 1000);
-                return;
-            }
-
             showTypingIndicator();
             const response = await queryCelestiaAPI(text);
             setTimeout(() => {
