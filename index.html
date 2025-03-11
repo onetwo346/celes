@@ -61,6 +61,7 @@
         .splash-screen.hidden {
             opacity: 0;
             pointer-events: none;
+            display: none; /* Added to fully remove it */
         }
 
         .splash-title {
@@ -96,7 +97,8 @@
             cursor: pointer;
             box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
             animation: pulse 1.5s infinite ease-in-out;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            touch-action: manipulation; /* Ensure touch works */
         }
 
         .enter-btn:hover {
@@ -129,6 +131,7 @@
         .mode-screen.active {
             opacity: 1;
             pointer-events: auto;
+            display: flex; /* Ensure it’s visible */
         }
 
         .mode-selection {
@@ -632,7 +635,7 @@
         // State
         let currentMode = null;
         let isTyping = false;
-        let chatHistory = []; // Memory for conversational flow
+        let chatHistory = [];
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -651,9 +654,18 @@
         createStars();
 
         // Splash Screen to Mode Selection
-        enterBtn.addEventListener('click', () => {
+        function showModeScreen() {
             splashScreen.classList.add('hidden');
-            setTimeout(() => modeScreen.classList.add('active'), 500);
+            setTimeout(() => {
+                modeScreen.style.display = 'flex'; // Ensure it’s visible first
+                modeScreen.classList.add('active');
+            }, 500); // Match CSS transition duration
+        }
+
+        enterBtn.addEventListener('click', showModeScreen);
+        enterBtn.addEventListener('touchend', (e) => {
+            e.preventDefault(); // Prevent double-trigger on mobile
+            showModeScreen();
         });
 
         // Mode Selection to Chat
@@ -662,11 +674,16 @@
                 currentMode = btn.dataset.mode;
                 modeScreen.classList.remove('active');
                 setTimeout(() => {
+                    modeScreen.style.display = 'none'; // Hide fully after transition
                     chatContainer.style.display = 'flex';
                     chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
                     const intro = `Greetings! I am ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator}. My DNA, the ${Object.keys(celestiaBlueprint.core).join(', ')} modules, powers me to assist you in ${currentMode === 'basic' ? 'simple, earthy ways' : 'cosmic, visionary depths'}. How can I help?`;
                     addCelestiaMessage(intro);
                 }, 500);
+            });
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                btn.click(); // Trigger click for touch devices
             });
         });
 
@@ -678,7 +695,10 @@
             sidebar.classList.remove('active');
             settingsPanel.classList.remove('active');
             chatContainer.classList.remove('shifted');
-            setTimeout(() => modeScreen.classList.add('active'), 500);
+            setTimeout(() => {
+                modeScreen.style.display = 'flex';
+                modeScreen.classList.add('active');
+            }, 500);
         });
 
         // Sidebar Toggle
@@ -713,10 +733,7 @@
         });
 
         // Settings Toggle
-        settingsToggle.addEventListener('click', () => {
-            settingsPanel.classList.add('active');
-            sidebar.classList.remove('active');
-        });
+        settingsToggle.addEventListener('click', () => settingsPanel.classList.add('active'));
         closeSettings.addEventListener('click', () => settingsPanel.classList.remove('active'));
 
         // Add Message
@@ -780,7 +797,10 @@
             try {
                 const response = await fetch(API_CONFIG.endpoint, {
                     method: 'POST',
-                    headers: API_CONFIG.headers,
+                    headers: {
+                        "Authorization": `Bearer ${API_CONFIG.key}`,
+                        "Content-Type": "application/json"
+                    },
                     body: JSON.stringify({
                         model: "text-davinci-003",
                         prompt: prompt,
