@@ -61,7 +61,7 @@
         .splash-screen.hidden {
             opacity: 0;
             pointer-events: none;
-            display: none; /* Added to fully remove it */
+            visibility: hidden; /* Extra assurance it’s gone */
         }
 
         .splash-title {
@@ -98,10 +98,10 @@
             box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
             animation: pulse 1.5s infinite ease-in-out;
             transition: transform 0.3s ease, background-color 0.3s ease;
-            touch-action: manipulation; /* Ensure touch works */
+            touch-action: manipulation;
         }
 
-        .enter-btn:hover {
+        .enter-btn:hover, .enter-btn:active {
             transform: scale(1.05);
             background-color: var(--accent-light);
         }
@@ -117,21 +117,20 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            display: flex;
+            display: none; /* Start hidden */
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: var(--primary-color);
             z-index: 90;
             opacity: 0;
-            pointer-events: none;
             transition: opacity 0.5s ease;
         }
 
         .mode-screen.active {
+            display: flex; /* Show when active */
             opacity: 1;
             pointer-events: auto;
-            display: flex; /* Ensure it’s visible */
         }
 
         .mode-selection {
@@ -654,18 +653,21 @@
         createStars();
 
         // Splash Screen to Mode Selection
-        function showModeScreen() {
+        function enterApp() {
+            console.log('Enter button clicked/tapped'); // Debug log
             splashScreen.classList.add('hidden');
             setTimeout(() => {
-                modeScreen.style.display = 'flex'; // Ensure it’s visible first
-                modeScreen.classList.add('active');
-            }, 500); // Match CSS transition duration
+                splashScreen.style.display = 'none'; // Fully hide after fade
+                modeScreen.style.display = 'flex';   // Show mode screen
+                modeScreen.classList.add('active');  // Fade it in
+            }, 500); // Matches transition duration
         }
 
-        enterBtn.addEventListener('click', showModeScreen);
-        enterBtn.addEventListener('touchend', (e) => {
-            e.preventDefault(); // Prevent double-trigger on mobile
-            showModeScreen();
+        enterBtn.addEventListener('click', enterApp);
+        enterBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Stop default touch behavior
+            console.log('Touch detected'); // Debug log
+            enterApp();
         });
 
         // Mode Selection to Chat
@@ -674,16 +676,16 @@
                 currentMode = btn.dataset.mode;
                 modeScreen.classList.remove('active');
                 setTimeout(() => {
-                    modeScreen.style.display = 'none'; // Hide fully after transition
+                    modeScreen.style.display = 'none';
                     chatContainer.style.display = 'flex';
                     chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
                     const intro = `Greetings! I am ${celestiaBlueprint.name}, created by ${celestiaBlueprint.creator}. My DNA, the ${Object.keys(celestiaBlueprint.core).join(', ')} modules, powers me to assist you in ${currentMode === 'basic' ? 'simple, earthy ways' : 'cosmic, visionary depths'}. How can I help?`;
                     addCelestiaMessage(intro);
                 }, 500);
             });
-            btn.addEventListener('touchend', (e) => {
+            btn.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                btn.click(); // Trigger click for touch devices
+                btn.click();
             });
         });
 
