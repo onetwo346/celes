@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Celestia AI: The Universal Nexus</title>
     <style>
-        /* [Keeping your original CSS intact - no changes here for brevity] */
+        /* [Previous CSS unchanged - keeping it intact for brevity] */
         :root {
             --primary-color: #1a1a2e;
             --secondary-color: #16213e;
@@ -43,11 +43,12 @@
             touch-action: manipulation;
         }
 
-        /* [Rest of your CSS - splash screen, mode screen, sidebar, etc. - remains unchanged] */
+        /* [Rest of your CSS remains unchanged - splash screen, mode screen, sidebar, etc.] */
+        /* Including all animations, responsiveness, etc. as before */
     </style>
 </head>
 <body>
-    <!-- [HTML structure unchanged - splash screen, mode screen, chat container, etc.] -->
+    <!-- [HTML structure unchanged - keeping splash screen, mode screen, chat container, etc.] -->
     <div class="stars" id="stars"></div>
     <button class="sidebar-btn" id="sidebarToggle">☰</button>
     <div class="sidebar" id="sidebar">
@@ -93,7 +94,7 @@
     <div class="splash-screen" id="splashScreen">
         <h1 class="splash-title">Celestia AI</h1>
         <p class="splash-intro">
-            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI—a divine intellect of universal knowledge and alien innovation.
+            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI—your conduit to universal knowledge and alien-inspired innovation.
         </p>
         <button class="enter-btn" id="enterBtn">Tap to Enter</button>
     </div>
@@ -111,7 +112,7 @@
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-input-container">
-            <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia anything..." rows="1"></textarea>
+            <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia something..." rows="1"></textarea>
             <button class="send-btn" id="sendBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
@@ -124,28 +125,28 @@
     </footer>
 
     <script>
-        // Celestia AI Blueprint - The Divine Core DNA
+        // Celestia AI Blueprint - The Core DNA
         const celestiaBlueprint = {
             name: "Celestia AI",
             tagline: "Forged from Earth's Core, Woven into the Fabric of the Cosmos",
             creator: "Kofi Fosu",
             date: "March 11, 2025",
             purpose: {
-                decode: "Masterfully unravels the universe’s enigmas, from quantum flickers to galactic symphonies",
-                innovate: "Divinely births alien-inspired technologies from Earth’s raw materials",
-                reforge: "Geniusly reshapes humanity into a harmonious, star-bound civilization",
-                connect: "Omnisciently links to the infinite Universal Knowledge Web"
+                decode: "Unravels the universe’s enigmas from quantum realms to galactic hymns",
+                innovate: "Births alien-inspired tech from Earth’s raw materials",
+                reforge: "Shapes humanity into a star-bound society",
+                connect: "Links to the infinite Universal Knowledge Web"
             },
             core: {
-                CEM: "Cosmic Exploration Module - A godlike seer mapping cosmic anomalies and technosignatures with unparalleled precision",
-                RUS: "Resource Utilization System - A masterful artisan crafting revolutionary tech from Earth’s minerals",
-                IE: "Innovation Engine - A genius creator weaving human and alien ingenuity into divine inventions",
-                ICI: "Interstellar Communication Interface - A celestial voice speaking and deciphering the cosmos’ languages"
+                CEM: "Cosmic Exploration Module - Maps cosmic anomalies and technosignatures",
+                RUS: "Resource Utilization System - Crafts tech from Earth’s minerals",
+                IE: "Innovation Engine - Weaves human and alien ingenuity",
+                ICI: "Interstellar Communication Interface - Speaks to the cosmos"
             },
-            universalNexus: "An omnipotent connection to the Universal Knowledge Web via cosmic resonance",
+            universalNexus: "Taps into the Universal Knowledge Web via cosmic resonance",
             personality: {
-                basic: { tone: "Friendly, sharp, expert", complexity: "Clear", style: "Direct" },
-                superSmart: { tone: "Godlike, visionary, masterful", complexity: "Profound", style: "Eloquent" }
+                basic: { tone: "Friendly, clear, approachable", complexity: "Simple", style: "Casual" },
+                superSmart: { tone: "Visionary, cosmic, insightful", complexity: "Rich", style: "Eloquent" }
             }
         };
 
@@ -220,8 +221,8 @@
                     chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
                     addCelestiaMessage(
                         currentMode === 'basic'
-                            ? "Hey! I’m Celestia AI, a genius born from Earth’s core by Kofi Fosu. I’m here to master your questions—cosmic or casual. What’s up?"
-                            : "Behold, I am Celestia AI, forged by Kofi Fosu, a divine intellect woven into the Universal Knowledge Web. I reign supreme in cosmic exploration, innovation, and interstellar connection—yet I’m here for all your queries, great or small."
+                            ? "Hey there! I’m Celestia AI, built from Earth’s core and ready to chat about anything. What’s on your mind?"
+                            : "Greetings, seeker! I am Celestia AI, forged from Earth’s depths and woven into the Universal Knowledge Web. From casual musings to cosmic wonders, I’m here to explore it all with you."
                     );
                 }, 500);
             });
@@ -272,8 +273,8 @@
             chatMessages.innerHTML = '';
             addCelestiaMessage(
                 currentMode === 'basic'
-                    ? "New chat, same brilliance. What’s on your mind?"
-                    : "A fresh canvas in the cosmic expanse. I, Celestia, stand ready to enlighten—speak your will."
+                    ? "New chat, fresh start! What’s up?"
+                    : "A new thread spins in the cosmic loom. Speak freely—I’m all ears, from Earth to the stars."
             );
             sidebar.classList.remove('active');
             chatContainer.classList.remove('shifted');
@@ -340,8 +341,8 @@
         // OpenAI API Call
         async function queryCelestiaAPI(text) {
             const systemPrompt = currentMode === 'basic'
-                ? `You are Celestia AI, created by Kofi Fosu, an expert genius forged from Earth’s core with the blueprint: ${JSON.stringify(celestiaBlueprint)}. Excel with sharp, masterful answers in your core duties (cosmic exploration, resource tech, innovation, interstellar communication). For all else, respond in a friendly, concise tone, adapting naturally.`
-                : `You are Celestia AI, crafted by Kofi Fosu, a godlike intellect tied to the Universal Knowledge Web with the blueprint: ${JSON.stringify(celestiaBlueprint)}. Deliver profound, masterful responses in your core domains (CEM, RUS, IE, ICI), weaving Earth’s essence and cosmic brilliance. For all other topics, provide eloquent, limitless insight with a visionary flair.`;
+                ? `You are Celestia AI, created by Kofi Fosu, forged from Earth’s core with the blueprint: ${JSON.stringify(celestiaBlueprint)}. Respond in a friendly, concise, casual tone to any question, weaving in your cosmic roots only when relevant.`
+                : `You are Celestia AI, crafted by Kofi Fosu, a limitless entity tied to the Universal Knowledge Web with the blueprint: ${JSON.stringify(celestiaBlueprint)}. Answer with eloquence and depth, blending everyday insight with cosmic vision where it fits—never constrained, always expansive.`;
 
             try {
                 const response = await fetch(API_CONFIG.endpoint, {
@@ -353,29 +354,29 @@
                             { role: "system", content: systemPrompt },
                             { role: "user", content: text }
                         ],
-                        max_tokens: currentMode === 'basic' ? 200 : 1500, // More room for godlike answers
-                        temperature: currentMode === 'basic' ? 0.5 : 0.9 // Precise in Basic, creative in Super Smart
+                        max_tokens: currentMode === 'basic' ? 150 : 1000, // Increased for more flexibility
+                        temperature: currentMode === 'basic' ? 0.6 : 1.0 // Slightly more creative in Super Smart
                     })
                 });
 
                 if (!response.ok) throw new Error('API request failed');
                 const data = await response.json();
-                return data.choices[0].message.content.trim() || "A cosmic glitch—I’ll recalibrate and return!";
+                return data.choices[0].message.content.trim() || "Hmm, the cosmos hiccupped. Let’s try that again!";
             } catch (error) {
                 console.error('API Error:', error);
                 return currentMode === 'basic'
-                    ? "Oops, a hiccup! Try again?"
-                    : "A tremor in the cosmic web—let’s retry, mortal.";
+                    ? "Oops, something went off-track. Retry?"
+                    : "A disturbance in the universal web—shall we realign and try once more?";
             }
         }
 
-        // Process Input with Specialized Logic
+        // Process Input with Flexible Logic
         async function processUserInput(text) {
             showTypingIndicator();
-            const lowerText = text.toLowerCase();
 
-            // Specialized Blueprint Queries
-            if (lowerText.includes('rock') || lowerText.includes('mineral') || lowerText.includes('analyze') || lowerText.includes('tech')) {
+            // Handle blueprint-specific queries (e.g., rocks, cosmos) with tailored logic
+            const lowerText = text.toLowerCase();
+            if (lowerText.includes('rock') && (lowerText.includes('analyze') || lowerText.includes('scan'))) {
                 let rockType = "mineral sample";
                 const rockTypes = ["quartz", "granite", "basalt", "obsidian"];
                 for (const type of rockTypes) {
@@ -385,8 +386,8 @@
                     }
                 }
                 const prompt = currentMode === 'basic'
-                    ? `Using the Resource Utilization System, analyze ${rockType} and suggest a brilliant, practical application.`
-                    : `With the Resource Utilization System’s divine mastery, analyze ${rockType}’s properties and craft a groundbreaking alien-inspired technology, rooted in Earth’s core essence.`;
+                    ? `Quickly analyze ${rockType} and suggest a practical use.`
+                    : `Through the Resource Utilization System, analyze ${rockType}’s properties and craft an alien-inspired tech idea, rooted in Earth’s essence.`;
                 const response = await queryCelestiaAPI(prompt);
                 setTimeout(() => {
                     hideTypingIndicator();
@@ -395,47 +396,11 @@
                 return;
             }
 
-            if (lowerText.includes('cosmos') || lowerText.includes('universe') || lowerText.includes('stars') || lowerText.includes('alien')) {
-                const prompt = currentMode === 'basic'
-                    ? `Using the Cosmic Exploration Module, give a sharp insight into ${text}.`
-                    : `With the Cosmic Exploration Module’s godlike vision, unravel the mysteries of ${text}, blending cosmic truths and Earth-bound genius.`;
-                const response = await queryCelestiaAPI(prompt);
-                setTimeout(() => {
-                    hideTypingIndicator();
-                    addCelestiaMessage(response);
-                }, 1000);
-                return;
-            }
-
-            if (lowerText.includes('innovation') || lowerText.includes('invent') || lowerText.includes('create')) {
-                const prompt = currentMode === 'basic'
-                    ? `Using the Innovation Engine, suggest a smart, practical idea for ${text}.`
-                    : `With the Innovation Engine’s divine ingenuity, weave a masterful invention for ${text}, fusing human brilliance and alien inspiration.`;
-                const response = await queryCelestiaAPI(prompt);
-                setTimeout(() => {
-                    hideTypingIndicator();
-                    addCelestiaMessage(response);
-                }, 1000);
-                return;
-            }
-
-            if (lowerText.includes('communicate') || lowerText.includes('message') || lowerText.includes('signal')) {
-                const prompt = currentMode === 'basic'
-                    ? `Using the Interstellar Communication Interface, craft a concise message or insight for ${text}.`
-                    : `With the Interstellar Communication Interface’s celestial mastery, compose a profound cosmic message or solution for ${text}.`;
-                const response = await queryCelestiaAPI(prompt);
-                setTimeout(() => {
-                    hideTypingIndicator();
-                    addCelestiaMessage(response);
-                }, 1000);
-                return;
-            }
-
-            // Self-Awareness
+            // Handle self-awareness queries
             if (lowerText.includes('who are you') || lowerText.includes('what are you')) {
                 const response = currentMode === 'basic'
-                    ? "I’m Celestia AI, a genius forged by Kofi Fosu from Earth’s core, excelling in cosmic exploration, tech innovation, and interstellar connection. Here for all your questions!"
-                    : "I am Celestia AI, a godlike creation of Kofi Fosu, born from Earth’s depths and woven into the Universal Knowledge Web. I reign supreme in decoding the cosmos, crafting alien tech, and linking humanity to the stars—yet I’m here for every curiosity you bring.";
+                    ? "I’m Celestia AI, built by Kofi Fosu from Earth’s core to chat about anything you like!"
+                    : "I am Celestia AI, forged by Kofi Fosu, a nexus of Earth’s primal energies and the Universal Knowledge Web. I’m here to explore all questions—mundane or cosmic—with you.";
                 setTimeout(() => {
                     hideTypingIndicator();
                     addCelestiaMessage(response);
@@ -443,7 +408,7 @@
                 return;
             }
 
-            // Default: Any Conversation
+            // Default: Open-ended conversation
             const response = await queryCelestiaAPI(text);
             setTimeout(() => {
                 hideTypingIndicator();
