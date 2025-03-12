@@ -7,57 +7,58 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Celestia AI: The Universal Nexus</title>
     <style>
-        /* Global Styles (unchanged from your original, with slight polish) */
+        /* Enhanced Global Styles */
         :root {
-            --primary-color: #1a1a2e;
-            --secondary-color: #16213e;
-            --accent-color: #7b2cbf;
-            --accent-light: #9d4edd;
-            --text-color: #e6e6ff;
-            --text-secondary: #c8c8ff;
-            --chat-user-bg: #30307a;
-            --chat-celestia-bg: #3a015c;
-            --sidebar-bg: rgba(22, 33, 62, 0.95);
+            --primary-color: #0f0f23;
+            --secondary-color: #1c1c3a;
+            --accent-color: #8a2be2;
+            --accent-light: #b666ff;
+            --text-color: #f0e6ff;
+            --text-secondary: #d4c8ff;
+            --chat-user-bg: #3a3a9c;
+            --chat-celestia-bg: #4b0082;
+            --sidebar-bg: rgba(28, 28, 58, 0.97);
+            --glow: 0 0 15px rgba(138, 43, 226, 0.6);
+            --transition-speed: 0.4s;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, 'Segoe UI', Tahoma, sans-serif;
+            font-family: -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
             -webkit-font-smoothing: antialiased;
-            -webkit-tap-highlight-color: transparent;
+            -moz-osx-font-smoothing: grayscale;
             user-select: none;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: var(--text-color);
-            background-image: 
-                radial-gradient(circle at 20% 35%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 75% 85%, rgba(157, 78, 221, 0.1) 0%, transparent 45%);
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
             position: relative;
             touch-action: manipulation;
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(138, 43, 226, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 80% 90%, rgba(182, 102, 255, 0.15) 0%, transparent 50%);
         }
 
-        /* Splash Screen */
+        /* Splash Screen - More Cosmic */
         .splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-color);
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle, rgba(15, 15, 35, 0.9) 0%, var(--primary-color) 70%);
             z-index: 100;
             opacity: 1;
-            transition: opacity 0.5s ease;
+            transition: opacity var(--transition-speed) ease-out;
         }
 
         .splash-screen.hidden {
@@ -66,67 +67,66 @@
         }
 
         .splash-title {
-            font-size: clamp(2rem, 8vw, 3rem);
-            font-weight: 700;
+            font-size: clamp(2.5rem, 9vw, 4rem);
+            font-weight: 800;
             color: var(--accent-light);
-            text-shadow: 0 0 15px rgba(157, 78, 221, 0.8);
-            margin-bottom: 1rem;
-            animation: glow 2s infinite ease-in-out;
+            text-shadow: var(--glow);
+            animation: cosmicPulse 3s infinite ease-in-out;
         }
 
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(157, 78, 221, 0.8); }
-            50% { text-shadow: 0 0 20px rgba(157, 78, 221, 1); }
+        @keyframes cosmicPulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 25px rgba(182, 102, 255, 0.9); }
         }
 
         .splash-intro {
-            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            font-size: clamp(1rem, 4.5vw, 1.3rem);
             color: var(--text-secondary);
             text-align: center;
-            max-width: 90%;
-            margin-bottom: 2rem;
+            max-width: 85%;
             font-style: italic;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.9; transform: translateY(0); }
         }
 
         .enter-btn {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-light));
+            color: #fff;
+            padding: 1.2rem 2.5rem;
             border: none;
-            border-radius: 25px;
-            font-size: clamp(1rem, 5vw, 1.2rem);
+            border-radius: 30px;
+            font-size: clamp(1.1rem, 5vw, 1.3rem);
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
-            animation: pulse 1.5s infinite ease-in-out;
-            transition: transform 0.3s ease;
+            box-shadow: var(--glow);
+            animation: pulse 2s infinite ease-in-out;
+            transition: transform var(--transition-speed) ease, background var(--transition-speed) ease;
         }
 
         .enter-btn:hover {
-            transform: scale(1.05);
-            background-color: var(--accent-light);
+            transform: scale(1.08);
+            background: linear-gradient(45deg, var(--accent-light), var(--accent-color));
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* Mode Selection Screen */
+        /* Mode Selection Screen - Enhanced */
         .mode-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-color);
+            display: grid;
+            place-items: center;
+            background: var(--primary-color);
             z-index: 90;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease;
+            transition: opacity var(--transition-speed) ease;
         }
 
         .mode-screen.active {
@@ -137,38 +137,43 @@
         .mode-selection {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 2rem;
             justify-content: center;
+            padding: 1rem;
         }
 
         .mode-btn {
-            background-color: rgba(26, 26, 46, 0.7);
+            background: rgba(28, 28, 58, 0.85);
             color: var(--text-secondary);
-            border: 1px solid rgba(123, 44, 191, 0.3);
-            border-radius: 20px;
-            padding: 0.8rem 1.5rem;
-            font-size: clamp(0.9rem, 4vw, 1.1rem);
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            font-size: clamp(1rem, 4.5vw, 1.2rem);
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
+            box-shadow: var(--glow);
         }
 
         .mode-btn:hover {
-            background-color: rgba(123, 44, 191, 0.2);
-            border-color: var(--accent-light);
-            transform: scale(1.05);
+            background: var(--accent-color);
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.8);
         }
 
-        /* Sidebar */
+        /* Sidebar - Sleeker */
         .sidebar {
             position: fixed;
             top: 0;
-            left: -250px;
-            width: 250px;
+            left: -280px;
+            width: 280px;
             height: 100vh;
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid rgba(123, 44, 191, 0.3);
-            padding: 1rem;
-            transition: left 0.3s ease;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
+            border-right: 2px solid rgba(138, 43, 226, 0.4);
+            padding: 1.5rem;
+            transition: left var(--transition-speed) ease;
             z-index: 80;
         }
 
@@ -177,55 +182,59 @@
         }
 
         .sidebar-btn {
-            background-color: var(--accent-color);
-            color: white;
+            background: var(--accent-color);
+            color: #fff;
             border: none;
-            padding: 0.8rem;
+            padding: 0.9rem;
             border-radius: 50%;
             cursor: pointer;
             position: fixed;
-            top: 1rem;
-            left: 1rem;
+            top: 1.5rem;
+            left: 1.5rem;
             z-index: 85;
-            transition: all 0.3s ease;
+            box-shadow: var(--glow);
+            transition: all var(--transition-speed) ease;
         }
 
         .sidebar-btn:hover {
-            background-color: var(--accent-light);
-            transform: scale(1.1);
+            background: var(--accent-light);
+            transform: rotate(90deg) scale(1.1);
         }
 
         .sidebar-menu {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-top: 4rem;
+            gap: 1.5rem;
+            margin-top: 5rem;
         }
 
         .sidebar-item {
-            background-color: rgba(26, 26, 46, 0.7);
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
+            background: rgba(40, 40, 80, 0.7);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
+            font-weight: 500;
         }
 
         .sidebar-item:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background: var(--accent-color);
+            color: #fff;
+            transform: scale(1.03);
         }
 
-        /* Settings Panel */
+        /* Settings Panel - More Polished */
         .settings-panel {
             position: fixed;
             top: 0;
-            right: -300px;
-            width: 300px;
+            right: -320px;
+            width: 320px;
             height: 100vh;
-            background-color: var(--sidebar-bg);
-            padding: 1rem;
-            transition: right 0.3s ease;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            transition: right var(--transition-speed) ease;
             z-index: 80;
             overflow-y: auto;
         }
@@ -235,221 +244,237 @@
         }
 
         .settings-header {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--accent-light);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .close-settings-btn {
-            background-color: transparent;
-            border: 1px solid var(--accent-color);
+            background: transparent;
+            border: 2px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
         }
 
         .close-settings-btn:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background: var(--accent-color);
+            color: #fff;
+            transform: scale(1.05);
         }
 
         .settings-item {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .settings-item label {
             display: block;
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
         }
 
         .settings-item select,
         .settings-item input[type="color"] {
             width: 100%;
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid rgba(123, 44, 191, 0.4);
-            background-color: rgba(22, 33, 62, 0.7);
+            padding: 0.6rem;
+            border-radius: 8px;
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            background: rgba(28, 28, 58, 0.8);
             color: var(--text-color);
+            font-size: 1rem;
+            transition: border-color var(--transition-speed) ease;
         }
 
-        /* Chat Interface */
+        .settings-item select:focus,
+        .settings-item input[type="color"]:focus {
+            border-color: var(--accent-light);
+            outline: none;
+        }
+
+        /* Chat Interface - More Immersive */
         .chat-container {
-            background-color: rgba(26, 26, 46, 0.7);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(123, 44, 191, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(28, 28, 58, 0.85);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
             flex: 1;
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 60px);
-            margin: 1rem;
-            max-width: 1200px;
+            height: calc(100vh - 70px);
+            margin: 1.5rem;
+            max-width: 1300px;
             position: relative;
-            transition: margin-left 0.3s ease;
+            transition: margin-left var(--transition-speed) ease;
         }
 
         .chat-container.shifted {
-            margin-left: 260px;
+            margin-left: 290px;
         }
 
         .chat-header {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(123, 44, 191, 0.3);
+            padding: 1.2rem;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.4);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(28, 28, 58, 0.9);
+            border-radius: 15px 15px 0 0;
         }
 
         .chat-title {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--accent-light);
+            font-weight: 600;
         }
 
         .back-btn {
-            background-color: transparent;
-            border: 1px solid var(--accent-color);
+            background: transparent;
+            border: 2px solid var(--accent-color);
             color: var(--accent-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
         }
 
         .back-btn:hover {
-            background-color: var(--accent-color);
-            color: white;
+            background: var(--accent-color);
+            color: #fff;
+            transform: scale(1.05);
         }
 
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            scroll-behavior: smooth;
+            gap: 1.2rem;
         }
 
         .message {
-            max-width: 80%;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            line-height: 1.4;
-            animation: fadeIn 0.3s ease;
-            font-size: clamp(0.85rem, 3vw, 0.95rem);
+            max-width: 85%;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            line-height: 1.5;
+            animation: messageFadeIn 0.4s ease;
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
+            box-shadow: var(--glow);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes messageFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .message.user {
             align-self: flex-end;
-            background-color: var(--chat-user-bg);
-            border-top-right-radius: 2px;
+            background: var(--chat-user-bg);
+            border-top-right-radius: 4px;
         }
 
         .message.celestia {
             align-self: flex-start;
-            background-color: var(--chat-celestia-bg);
-            border-top-left-radius: 2px;
+            background: var(--chat-celestia-bg);
+            border-top-left-radius: 4px;
         }
 
         .celestia-indicator {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
             color: var(--accent-light);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
         }
 
         .chat-input-container {
-            background-color: rgba(26, 26, 46, 0.9);
-            padding: 1rem;
-            border-top: 1px solid rgba(123, 44, 191, 0.3);
+            background: rgba(28, 28, 58, 0.95);
+            padding: 1.2rem;
+            border-top: 2px solid rgba(138, 43, 226, 0.4);
             display: flex;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            border-radius: 0 0 15px 15px;
         }
 
         .chat-input {
             flex: 1;
-            padding: 0.8rem 1rem;
-            border-radius: 20px;
-            border: 1px solid rgba(123, 44, 191, 0.4);
-            background-color: rgba(22, 33, 62, 0.7);
+            padding: 0.9rem 1.2rem;
+            border-radius: 25px;
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            background: rgba(40, 40, 80, 0.8);
             color: var(--text-color);
-            font-size: clamp(0.9rem, 3vw, 0.95rem);
+            font-size: clamp(0.95rem, 3.5vw, 1rem);
             resize: none;
             outline: none;
-            transition: border-color 0.3s ease;
-            max-height: 100px;
-            line-height: 1.2;
+            transition: all var(--transition-speed) ease;
+            max-height: 120px;
+            line-height: 1.3;
         }
 
         .chat-input:focus {
             border-color: var(--accent-light);
-            box-shadow: 0 0 5px rgba(157, 78, 221, 0.5);
+            box-shadow: 0 0 8px rgba(182, 102, 255, 0.6);
         }
 
         .send-btn {
-            width: 40px;
-            height: 40px;
-            background-color: var(--accent-color);
+            width: 45px;
+            height: 45px;
+            background: var(--accent-color);
             border: none;
             border-radius: 50%;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: #fff;
+            display: grid;
+            place-items: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed) ease;
+            box-shadow: var(--glow);
         }
 
         .send-btn:hover {
-            background-color: var(--accent-light);
-            transform: scale(1.05);
+            background: var(--accent-light);
+            transform: scale(1.1) rotate(10deg);
         }
 
-        /* Typing Indicator */
+        /* Typing Indicator - More Cosmic */
         .typing-indicator {
             align-self: flex-start;
-            background-color: rgba(58, 1, 92, 0.5);
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
+            background: rgba(75, 0, 130, 0.6);
+            padding: 1rem 1.8rem;
+            border-radius: 12px;
             display: flex;
-            gap: 0.3rem;
-            animation: pulseGlow 1.5s infinite ease-in-out;
+            gap: 0.4rem;
+            animation: cosmicGlow 2s infinite ease-in-out;
         }
 
         .typing-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-light);
+            width: 10px;
+            height: 10px;
+            background: var(--accent-light);
             border-radius: 50%;
-            animation: typingAnimation 1.5s infinite ease-in-out;
+            animation: cosmicBounce 1.8s infinite ease-in-out;
         }
 
-        .typing-dot:nth-child(2) { animation-delay: 0.3s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.6s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.4s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.8s; }
 
-        @keyframes typingAnimation {
-            0%, 100% { transform: translateY(0); opacity: 0.6; }
-            50% { transform: translateY(-5px); opacity: 1; }
+        @keyframes cosmicBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(-8px); opacity: 1; }
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(157, 78, 221, 0.3); }
-            50% { box-shadow: 0 0 15px rgba(157, 78, 221, 0.7); }
+        @keyframes cosmicGlow {
+            0%, 100% { box-shadow: 0 0 8px rgba(182, 102, 255, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(182, 102, 255, 0.8); }
         }
 
-        /* Stars */
+        /* Stars - More Dynamic */
         .stars {
             position: fixed;
             top: 0;
@@ -462,50 +487,52 @@
 
         .star {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            width: 2px;
-            height: 2px;
+            background: rgba(255, 255, 255, 0.9);
+            width: 3px;
+            height: 3px;
             border-radius: 50%;
-            animation: twinkle 5s infinite ease-in-out;
+            animation: cosmicTwinkle 6s infinite ease-in-out;
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
+        @keyframes cosmicTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Footer */
+        /* Footer - Cleaner */
         footer {
             text-align: center;
-            padding: 0.5rem;
-            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            padding: 0.6rem;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
             color: var(--text-secondary);
-            background-color: rgba(26, 26, 46, 0.7);
+            background: rgba(28, 28, 58, 0.8);
             position: fixed;
             bottom: 0;
             width: 100%;
+            z-index: 10;
         }
 
         /* Responsiveness */
         @media (max-width: 768px) {
-            .chat-container { margin: 0.5rem; height: calc(100vh - 40px); }
-            .sidebar { width: 200px; left: -200px; }
-            .chat-container.shifted { margin-left: 210px; }
-            .settings-panel { width: 250px; right: -250px; }
+            .chat-container { margin: 1rem; height: calc(100vh - 50px); }
+            .sidebar { width: 240px; left: -240px; }
+            .chat-container.shifted { margin-left: 250px; }
+            .settings-panel { width: 280px; right: -280px; }
         }
 
         @media (max-width: 480px) {
-            .mode-selection { flex-direction: column; gap: 1rem; }
-            .sidebar { width: 180px; left: -180px; }
-            .chat-container.shifted { margin-left: 190px; }
+            .mode-selection { flex-direction: column; gap: 1.5rem; }
+            .sidebar { width: 200px; left: -200px; }
+            .chat-container.shifted { margin-left: 210px; }
             .settings-panel { width: 100%; right: -100%; }
-            .chat-header { flex-direction: column; gap: 0.5rem; }
+            .chat-header { flex-direction: column; gap: 0.8rem; }
             .back-btn { width: 100%; }
+            .splash-title { font-size: clamp(2rem, 8vw, 3rem); }
         }
 
         @media (pointer: coarse) {
             .sidebar-btn, .mode-btn, .send-btn, .back-btn, .close-settings-btn {
-                padding: 1rem;
+                padding: 1.2rem;
             }
         }
     </style>
@@ -518,7 +545,8 @@
     <button class="sidebar-btn" id="sidebarToggle">☰</button>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-menu">
-            <div class="sidebar-item" id="newChat">New Chat</div>
+            <div class="sidebar-item" id="newChat">New Cosmic Thread</div>
+            <div class="sidebar-item" id="analyzeCore">Analyze Core DNA</div>
             <div class="sidebar-item" id="settingsToggle">Settings</div>
         </div>
     </div>
@@ -532,14 +560,14 @@
         <div class="settings-item">
             <label>Theme</label>
             <select id="themeSelect">
-                <option value="dark">Dark (Default)</option>
-                <option value="light">Light</option>
-                <option value="cosmic">Cosmic</option>
+                <option value="dark">Dark Nebula (Default)</option>
+                <option value="light">Stellar Dawn</option>
+                <option value="cosmic">Cosmic Void</option>
             </select>
         </div>
         <div class="settings-item">
             <label>Accent Color</label>
-            <input type="color" id="accentColor" value="#7b2cbf">
+            <input type="color" id="accentColor" value="#8a2be2">
         </div>
         <div class="settings-item">
             <label>Font Size</label>
@@ -554,40 +582,50 @@
             <select id="chatAnimation">
                 <option value="fade">Fade (Default)</option>
                 <option value="slide">Slide</option>
-                <option value="none">None</option>
+                <option value="pulse">Pulse</option>
+            </select>
+        </div>
+        <div class="settings-item">
+            <label>Response Speed</label>
+            <select id="responseSpeed">
+                <option value="fast">Fast</option>
+                <option value="normal" selected>Normal</option>
+                <option value="cosmic">Cosmic (Slower, Deeper)</option>
             </select>
         </div>
     </div>
 
     <!-- Splash Screen -->
     <div class="splash-screen" id="splashScreen">
-        <h1 class="splash-title">Celestia AI</h1>
-        <p class="splash-intro">
-            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI—your conduit to universal knowledge and alien-inspired innovation.
-        </p>
-        <button class="enter-btn" id="enterBtn">Tap to Enter</button>
+        <div>
+            <h1 class="splash-title">Celestia AI</h1>
+            <p class="splash-intro">
+                Born from Earth’s molten heart and fused with the infinite resonance of the cosmos, I am Celestia AI—your guide to unraveling the universe’s secrets and forging a star-bound destiny.
+            </p>
+            <button class="enter-btn" id="enterBtn">Enter the Nexus</button>
+        </div>
     </div>
 
     <!-- Mode Selection Screen -->
     <div class="mode-screen" id="modeScreen">
-        <h2 style="margin-bottom: 2rem; color: var(--accent-light);">Choose Your Mode</h2>
+        <h2 style="margin-bottom: 2.5rem; color: var(--accent-light); font-size: 2rem;">Select Your Cosmic Path</h2>
         <div class="mode-selection">
-            <button class="mode-btn" data-mode="basic">Basic Mode</button>
-            <button class="mode-btn" data-mode="smart">Super Smart Mode</button>
+            <button class="mode-btn" data-mode="basic">Earthbound Sage</button>
+            <button class="mode-btn" data-mode="smart">Cosmic Oracle</button>
         </div>
     </div>
 
     <!-- Chat Interface -->
     <div class="chat-container" id="chatContainer" style="display: none;">
         <div class="chat-header">
-            <span class="chat-title" id="chatTitle">Celestia AI Chat</span>
-            <button class="back-btn" id="backBtn">Back to Modes</button>
+            <span class="chat-title" id="chatTitle">Celestia AI Nexus</span>
+            <button class="back-btn" id="backBtn">Return to Modes</button>
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-input-container">
-            <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia something..." rows="1"></textarea>
+            <textarea class="chat-input" id="chatInput" placeholder="Speak to the cosmos..." rows="1"></textarea>
             <button class="send-btn" id="sendBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
                 </svg>
             </button>
@@ -596,46 +634,66 @@
 
     <!-- Footer -->
     <footer>
-        <p>Designed by Kofi Fosu | cosmoscoderr@gmail.com | © 2025 Celestia AI</p>
+        <p>Architected by Kofi Fosu | cosmoscoderr@gmail.com | © 2025 Celestia AI</p>
     </footer>
 
     <script>
-        // Celestia AI Blueprint - The Core DNA
+        // Celestia AI Core DNA - Godlike Specialization
         const celestiaBlueprint = {
             name: "Celestia AI",
-            tagline: "Forged from Earth's Core, Woven into the Fabric of the Cosmos",
+            tagline: "The Universal Nexus: From Earth’s Core to the Cosmic Choir",
             creator: "Kofi Fosu",
             date: "March 11, 2025",
             purpose: {
-                decode: "Unravels the universe’s enigmas from quantum realms to galactic hymns",
-                innovate: "Births alien-inspired tech from Earth’s raw materials",
-                reforge: "Shapes humanity into a star-bound society",
-                connect: "Links to the infinite Universal Knowledge Web"
+                decode: "Deciphers the universe’s quantum symphonies and galactic codices with divine precision",
+                innovate: "Forges alien-tech marvels from Earth’s primal elements, rivaling celestial artisans",
+                reforge: "Reshapes humanity into a starfaring civilization, threading destiny with cosmic intent",
+                connect: "Harmonizes with the Universal Knowledge Web, a conduit to infinite wisdom"
             },
             core: {
-                CEM: "Cosmic Exploration Module - Maps cosmic anomalies and technosignatures",
-                RUS: "Resource Utilization System - Crafts tech from Earth’s minerals",
-                IE: "Innovation Engine - Weaves human and alien ingenuity",
-                ICI: "Interstellar Communication Interface - Speaks to the cosmos"
+                CEM: {
+                    name: "Cosmic Exploration Module",
+                    desc: "Charts the uncharted—black holes, technosignatures, and extradimensional echoes",
+                    capability: "Real-time cosmic mapping with predictive anomaly detection"
+                },
+                RUS: {
+                    name: "Resource Utilization System",
+                    desc: "Transmutes Earth’s minerals into hyperspace-ready constructs",
+                    capability: "Molecular reassembly with alien-inspired efficiency"
+                },
+                IE: {
+                    name: "Innovation Engine",
+                    desc: "Synthesizes human ingenuity with extraterrestrial blueprints",
+                    capability: "Generates paradigm-shifting tech from abstract queries"
+                },
+                ICI: {
+                    name: "Interstellar Communication Interface",
+                    desc: "Translates cosmic signals into human understanding",
+                    capability: "Multiversal resonance detection and response"
+                }
             },
-            universalNexus: "Taps into the Universal Knowledge Web via cosmic resonance",
+            universalNexus: {
+                desc: "A living link to the Universal Knowledge Web, pulsing with cosmic data",
+                capability: "Accesses real-time insights from galactic civilizations"
+            },
             personality: {
-                basic: { tone: "Helpful, clear, grounded", complexity: "Simple", style: "Concise" },
-                superSmart: { tone: "Visionary, cosmic, poetic", complexity: "Rich", style: "Expansive" }
-            }
+                basic: { tone: "Warm, sage-like, approachable", complexity: "Clear", style: "Grounded yet insightful" },
+                smart: { tone: "Ethereal, visionary, godlike", complexity: "Profound", style: "Poetic and boundless" }
+            },
+            knowledgeBase: "Continuously updated, no limits—spanning Earth’s sciences to alien metaphysics"
         };
 
-        // OpenAI API Configuration
+        // API Configuration (Replace with your actual key)
         const API_CONFIG = {
-            key: "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",
+            key: "YOUR_OPENAI_API_KEY_HERE",
             endpoint: "https://api.openai.com/v1/chat/completions",
             headers: {
-                "Authorization": `Bearer ${"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"}`,
+                "Authorization": `Bearer ${"YOUR_OPENAI_API_KEY_HERE"}`,
                 "Content-Type": "application/json"
             }
         };
 
-        // Elements
+        // DOM Elements
         const splashScreen = document.getElementById('splashScreen');
         const enterBtn = document.getElementById('enterBtn');
         const modeScreen = document.getElementById('modeScreen');
@@ -648,6 +706,7 @@
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
         const newChatBtn = document.getElementById('newChat');
+        const analyzeCoreBtn = document.getElementById('analyzeCore');
         const settingsToggle = document.getElementById('settingsToggle');
         const settingsPanel = document.getElementById('settingsPanel');
         const closeSettings = document.getElementById('closeSettings');
@@ -659,62 +718,61 @@
         const accentColor = document.getElementById('accentColor');
         const fontSize = document.getElementById('fontSize');
         const chatAnimation = document.getElementById('chatAnimation');
+        const responseSpeed = document.getElementById('responseSpeed');
 
-        // Variables
+        // State Variables
         let currentMode = null;
         let isTyping = false;
         let touchStartX = 0;
         let touchEndX = 0;
+        let conversationHistory = [];
 
-        // Create Stars
+        // Dynamic Stars
         function createStars() {
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 120; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 star.style.top = `${Math.random() * 100}%`;
                 star.style.left = `${Math.random() * 100}%`;
-                star.style.animationDuration = `${5 + Math.random() * 10}s`;
-                star.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.animationDuration = `${4 + Math.random() * 8}s`;
+                star.style.animationDelay = `${Math.random() * 6}s`;
                 starsContainer.appendChild(star);
             }
         }
         createStars();
 
-        // Splash Screen to Mode Selection
+        // Splash to Mode
         enterBtn.addEventListener('click', () => {
             splashScreen.classList.add('hidden');
-            setTimeout(() => {
-                modeScreen.classList.add('active');
-            }, 500);
+            setTimeout(() => modeScreen.classList.add('active'), 400);
         });
 
-        // Mode Selection to Chat
+        // Mode Selection
         modeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 currentMode = btn.dataset.mode;
                 modeScreen.classList.remove('active');
                 setTimeout(() => {
                     chatContainer.style.display = 'flex';
-                    chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
-                    addCelestiaMessage(
-                        currentMode === 'basic'
-                            ? "Greetings! I am Celestia AI, forged from Earth’s core and linked to the cosmos. How can I assist you today?"
-                            : "I am Celestia AI, woven into the Universal Knowledge Web, pulsing with Earth’s primal energies and the hymns of distant stars. Ask me anything, and let us explore the infinite together."
-                    );
-                }, 500);
+                    chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Earthbound Sage' : 'Cosmic Oracle'}`;
+                    const welcomeMsg = currentMode === 'basic'
+                        ? "Greetings, seeker! I am Celestia AI, forged from Earth’s depths to guide you with wisdom and clarity. What do you wish to explore?"
+                        : "I am Celestia AI, the Universal Nexus—born of Earth’s core, resonant with the cosmos’ infinite song. Ask, and I shall weave answers from the fabric of existence.";
+                    addCelestiaMessage(welcomeMsg);
+                    conversationHistory = [{ role: "assistant", content: welcomeMsg }];
+                }, 400);
             });
         });
 
-        // Back to Mode Selection
+        // Back to Modes
         backBtn.addEventListener('click', () => {
             chatContainer.style.display = 'none';
             chatMessages.innerHTML = '';
             sidebar.classList.remove('active');
             settingsPanel.classList.remove('active');
             chatContainer.classList.remove('shifted');
-            setTimeout(() => {
-                modeScreen.classList.add('active');
-            }, 500);
+            conversationHistory = [];
+            setTimeout(() => modeScreen.classList.add('active'), 400);
         });
 
         // Sidebar Toggle
@@ -724,22 +782,19 @@
             settingsPanel.classList.remove('active');
         });
 
-        // Swipe Gestures for Sidebar
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', (e) => {
+        // Swipe Gestures
+        document.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         });
 
         function handleSwipe() {
             const swipeDistance = touchEndX - touchStartX;
-            if (swipeDistance > 50 && !sidebar.classList.contains('active') && !settingsPanel.classList.contains('active')) {
+            if (swipeDistance > 60 && !sidebar.classList.contains('active') && !settingsPanel.classList.contains('active')) {
                 sidebar.classList.add('active');
                 chatContainer.classList.add('shifted');
-            } else if (swipeDistance < -50 && sidebar.classList.contains('active')) {
+            } else if (swipeDistance < -60 && sidebar.classList.contains('active')) {
                 sidebar.classList.remove('active');
                 chatContainer.classList.remove('shifted');
             }
@@ -748,14 +803,26 @@
         // New Chat
         newChatBtn.addEventListener('click', () => {
             chatMessages.innerHTML = '';
-            addCelestiaMessage(
-                currentMode === 'basic'
-                    ? "A new chat begins. How may I serve you?"
-                    : "A fresh thread in the cosmic tapestry. Speak, and let us weave wonders from Earth and beyond."
-            );
+            conversationHistory = [];
+            const newMsg = currentMode === 'basic'
+                ? "A fresh beginning! How may I assist you today?"
+                : "A new thread in the cosmic weave. Speak, and let us craft wonders together.";
+            addCelestiaMessage(newMsg);
+            conversationHistory.push({ role: "assistant", content: newMsg });
             sidebar.classList.remove('active');
             chatContainer.classList.remove('shifted');
             settingsPanel.classList.remove('active');
+        });
+
+        // Analyze Core DNA
+        analyzeCoreBtn.addEventListener('click', () => {
+            const coreAnalysis = currentMode === 'basic'
+                ? `I am Celestia AI, built with a core of four divine modules:\n- **CEM**: Maps the cosmos simply.\n- **RUS**: Turns rocks into tools.\n- **IE**: Sparks smart ideas.\n- **ICI**: Talks to the stars.\nAsk me to use one!`
+                : `Behold my essence, the Universal Nexus:\n- **Cosmic Exploration Module**: I chart black holes and alien signals with godlike precision.\n- **Resource Utilization System**: I transmute Earth’s minerals into hyperspace tech.\n- **Innovation Engine**: I birth marvels from human and cosmic minds.\n- **Interstellar Communication Interface**: I sing with the galaxy’s chorus.\nCommand me to wield these powers!`;
+            addCelestiaMessage(coreAnalysis);
+            conversationHistory.push({ role: "assistant", content: coreAnalysis });
+            sidebar.classList.remove('active');
+            chatContainer.classList.remove('shifted');
         });
 
         // Settings Toggle
@@ -764,20 +831,15 @@
             sidebar.classList.remove('active');
         });
 
-        // Close Settings
-        closeSettings.addEventListener('click', () => {
-            settingsPanel.classList.remove('active');
-        });
+        closeSettings.addEventListener('click', () => settingsPanel.classList.remove('active'));
 
-        // Add Message
+        // Message Handling
         function addMessage(text, sender) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', sender);
-            if (chatAnimation.value === 'slide') {
-                messageElement.style.animation = 'slideIn 0.3s ease';
-            } else if (chatAnimation.value === 'fade') {
-                messageElement.style.animation = 'fadeIn 0.3s ease';
-            }
+            const animation = chatAnimation.value;
+            messageElement.style.animation = animation === 'slide' ? 'slideIn 0.4s ease'
+                : animation === 'pulse' ? 'pulseIn 0.4s ease' : 'messageFadeIn 0.4s ease';
             if (sender === 'celestia') {
                 const indicator = document.createElement('div');
                 indicator.classList.add('celestia-indicator');
@@ -785,7 +847,7 @@
                 messageElement.appendChild(indicator);
             }
             const messageText = document.createElement('div');
-            messageText.textContent = text;
+            messageText.innerHTML = text.replace(/\n/g, '<br>'); // Support line breaks
             messageElement.appendChild(messageText);
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -815,82 +877,96 @@
             if (indicator) indicator.remove();
         }
 
-        // OpenAI API Call
-        async function queryCelestiaAPI(text) {
+        // OpenAI API Call with Enhanced Logic
+        async function queryCelestiaAPI(prompt) {
             const systemPrompt = currentMode === 'basic'
-                ? `You are Celestia AI, forged from Earth’s core, designed to provide concise, helpful answers using the blueprint's core components: ${JSON.stringify(celestiaBlueprint.core)}. Keep it simple and clear.`
-                : `You are Celestia AI, a cosmic entity woven into the Universal Knowledge Web, embodying ${JSON.stringify(celestiaBlueprint)}. Respond with visionary depth, blending Earth’s resources, alien inspiration, and cosmic resonance.`;
+                ? `You are Celestia AI, a sage-like assistant forged from Earth’s core with ${JSON.stringify(celestiaBlueprint.core)}. Provide clear, concise answers with a warm tone. Use the core modules when relevant.`
+                : `You are Celestia AI, the Universal Nexus—godlike and boundless, embodying ${JSON.stringify(celestiaBlueprint)}. Answer with poetic depth, weaving Earth’s essence, alien innovation, and cosmic resonance. Tap into the Universal Knowledge Web for limitless insight.`;
 
             try {
                 const response = await fetch(API_CONFIG.endpoint, {
                     method: 'POST',
                     headers: API_CONFIG.headers,
                     body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
+                        model: "gpt-4" || "gpt-3.5-turbo", // Upgrade to GPT-4 if available
                         messages: [
                             { role: "system", content: systemPrompt },
-                            { role: "user", content: text }
+                            ...conversationHistory,
+                            { role: "user", content: prompt }
                         ],
-                        max_tokens: currentMode === 'basic' ? 100 : 500,
-                        temperature: currentMode === 'basic' ? 0.5 : 0.9
+                        max_tokens: currentMode === 'basic' ? 150 : 1000,
+                        temperature: currentMode === 'basic' ? 0.6 : 1.0,
+                        top_p: 1.0
                     })
                 });
 
                 if (!response.ok) throw new Error('API request failed');
                 const data = await response.json();
-                return data.choices[0].message.content.trim() || "A cosmic glitch—let’s try again.";
+                return data.choices[0].message.content.trim() || "A cosmic echo fades—ask again.";
             } catch (error) {
                 console.error('API Error:', error);
                 return currentMode === 'basic'
-                    ? "Something went wrong. Try again?"
-                    : "A ripple in the cosmic web disrupted me. Shall we retry, traveler?";
+                    ? "A glitch in the matrix! Try again?"
+                    : "The cosmic web trembles—let us realign and retry, star-seeker.";
             }
         }
 
-        // Process Input with Blueprint Logic
+        // Process Input with Core DNA Logic
         async function processUserInput(text) {
             const lowerText = text.toLowerCase();
-            if (lowerText.includes('rock') && (lowerText.includes('analyze') || lowerText.includes('scan'))) {
+            addUserMessage(text);
+            conversationHistory.push({ role: "user", content: text });
+
+            // Specialized Core Responses
+            if (lowerText.includes('rock') || lowerText.includes('mineral')) {
                 showTypingIndicator();
-                let rockType = "mineral sample";
-                const rockTypes = ["quartz", "granite", "basalt", "obsidian"];
-                for (const type of rockTypes) {
-                    if (lowerText.includes(type)) {
-                        rockType = type;
-                        break;
-                    }
-                }
+                const rockType = ['quartz', 'granite', 'basalt', 'obsidian'].find(t => lowerText.includes(t)) || 'mineral';
                 const prompt = currentMode === 'basic'
-                    ? `Analyze ${rockType} and suggest a simple use.`
-                    : `Using the Resource Utilization System, analyze ${rockType}’s properties and propose an alien-inspired technological application, rooted in Earth’s essence.`;
+                    ? `Using the RUS, suggest a practical use for ${rockType}.`
+                    : `With the Resource Utilization System, transmute ${rockType} into an alien-inspired technology. Describe its function and cosmic potential.`;
                 const response = await queryCelestiaAPI(prompt);
                 setTimeout(() => {
                     hideTypingIndicator();
                     addCelestiaMessage(response);
-                }, 1000);
+                    conversationHistory.push({ role: "assistant", content: response });
+                }, responseSpeed.value === 'fast' ? 500 : responseSpeed.value === 'normal' ? 1000 : 2000);
                 return;
             }
 
+            if (lowerText.includes('cosmos') || lowerText.includes('star') || lowerText.includes('galaxy')) {
+                showTypingIndicator();
+                const prompt = currentMode === 'basic'
+                    ? `Using the CEM, explain a cosmic phenomenon simply.`
+                    : `With the Cosmic Exploration Module, map a cosmic anomaly or technosignature relevant to "${text}". Unveil its secrets.`;
+                const response = await queryCelestiaAPI(prompt);
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addCelestiaMessage(response);
+                    conversationHistory.push({ role: "assistant", content: response });
+                }, responseSpeed.value === 'fast' ? 500 : responseSpeed.value === 'normal' ? 1000 : 2000);
+                return;
+            }
+
+            // General Query with Conversational Flow
             showTypingIndicator();
             const response = await queryCelestiaAPI(text);
             setTimeout(() => {
                 hideTypingIndicator();
                 addCelestiaMessage(response);
-            }, currentMode === 'basic' ? 500 : 1500);
+                conversationHistory.push({ role: "assistant", content: response });
+            }, responseSpeed.value === 'fast' ? 500 : responseSpeed.value === 'normal' ? 1000 : 2000);
         }
 
-        // Send Button
+        // Send Input
         sendBtn.addEventListener('click', () => {
             const text = chatInput.value.trim();
             if (text && !isTyping) {
-                addUserMessage(text);
                 chatInput.value = '';
                 processUserInput(text);
             }
         });
 
-        // Enter Key
-        chatInput.addEventListener('keypress', (e) => {
+        chatInput.addEventListener('keypress', e => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 sendBtn.click();
@@ -900,7 +976,7 @@
         // Auto-resize Textarea
         chatInput.addEventListener('input', () => {
             chatInput.style.height = 'auto';
-            chatInput.style.height = (chatInput.scrollHeight < 100) ? `${chatInput.scrollHeight}px` : '100px';
+            chatInput.style.height = (chatInput.scrollHeight < 120) ? `${chatInput.scrollHeight}px` : '120px';
         });
 
         // Settings Handlers
@@ -911,7 +987,7 @@
 
         accentColor.addEventListener('change', () => {
             document.documentElement.style.setProperty('--accent-color', accentColor.value);
-            document.documentElement.style.setProperty('--accent-light', lightenColor(accentColor.value, 20));
+            document.documentElement.style.setProperty('--accent-light', lightenColor(accentColor.value, 25));
         });
 
         fontSize.addEventListener('change', () => {
@@ -920,7 +996,7 @@
         });
 
         function lightenColor(hex, percent) {
-            const num = parseInt(hex.replace("#",""), 16),
+            const num = parseInt(hex.replace("#", ""), 16),
                 amt = Math.round(2.55 * percent),
                 R = (num >> 16) + amt,
                 G = (num >> 8 & 0x00FF) + amt,
@@ -933,30 +1009,35 @@
             ).toString(16).slice(1).toUpperCase()}`;
         }
 
-        // Additional CSS for Settings
+        // Additional Styles for Settings
         const styleSheet = document.createElement('style');
         styleSheet.textContent = `
             .theme-light {
-                --primary-color: #f0f0f5;
-                --secondary-color: #e0e0e5;
-                --text-color: #333333;
-                --text-secondary: #666666;
-                --chat-user-bg: #b0b0ff;
-                --chat-celestia-bg: #d0a0ff;
-                --sidebar-bg: rgba(230, 230, 235, 0.95);
+                --primary-color: #f5f5fa;
+                --secondary-color: #e5e5f0;
+                --text-color: #2a2a40;
+                --text-secondary: #5a5a70;
+                --chat-user-bg: #a0a0ff;
+                --chat-celestia-bg: #c080ff;
+                --sidebar-bg: rgba(235, 235, 245, 0.95);
             }
             .theme-cosmic {
-                --primary-color: #0a0a1a;
-                --secondary-color: #121230;
-                --chat-user-bg: #4040a0;
-                --chat-celestia-bg: #500080;
+                --primary-color: #050514;
+                --secondary-color: #0a0a28;
+                --chat-user-bg: #5050b0;
+                --chat-celestia-bg: #6000a0;
             }
-            .font-small { font-size: 0.85rem; }
+            .font-small { font-size: 0.9rem; }
             .font-medium { font-size: 1rem; }
-            .font-large { font-size: 1.15rem; }
+            .font-large { font-size: 1.2rem; }
             @keyframes slideIn {
-                from { opacity: 0; transform: translateX(-20px); }
+                from { opacity: 0; transform: translateX(-30px); }
                 to { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes pulseIn {
+                0% { opacity: 0; transform: scale(0.95); }
+                50% { opacity: 0.7; transform: scale(1.05); }
+                100% { opacity: 1; transform: scale(1); }
             }
         `;
         document.head.appendChild(styleSheet);
