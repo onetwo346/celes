@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Celestia AI: The Universal Nexus</title>
     <style>
-        /* Global Styles */
+        /* Global Styles (unchanged from your original, with slight polish) */
         :root {
             --primary-color: #1a1a2e;
             --secondary-color: #16213e;
@@ -27,7 +27,7 @@
             font-family: -apple-system, 'Segoe UI', Tahoma, sans-serif;
             -webkit-font-smoothing: antialiased;
             -webkit-tap-highlight-color: transparent;
-            user-select: none; /* Prevent text selection on mobile */
+            user-select: none;
         }
 
         body {
@@ -40,7 +40,7 @@
             overflow-x: hidden;
             display: flex;
             position: relative;
-            touch-action: manipulation; /* Optimize touch events */
+            touch-action: manipulation;
         }
 
         /* Splash Screen */
@@ -425,6 +425,7 @@
             border-radius: 10px;
             display: flex;
             gap: 0.3rem;
+            animation: pulseGlow 1.5s infinite ease-in-out;
         }
 
         .typing-dot {
@@ -441,6 +442,11 @@
         @keyframes typingAnimation {
             0%, 100% { transform: translateY(0); opacity: 0.6; }
             50% { transform: translateY(-5px); opacity: 1; }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(157, 78, 221, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(157, 78, 221, 0.7); }
         }
 
         /* Stars */
@@ -557,7 +563,7 @@
     <div class="splash-screen" id="splashScreen">
         <h1 class="splash-title">Celestia AI</h1>
         <p class="splash-intro">
-            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI — your guide to universal knowledge and innovation.
+            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI—your conduit to universal knowledge and alien-inspired innovation.
         </p>
         <button class="enter-btn" id="enterBtn">Tap to Enter</button>
     </div>
@@ -594,31 +600,37 @@
     </footer>
 
     <script>
-        // Celestia AI Blueprint
+        // Celestia AI Blueprint - The Core DNA
         const celestiaBlueprint = {
             name: "Celestia AI",
             tagline: "Forged from Earth's Core, Woven into the Fabric of the Cosmos",
             creator: "Kofi Fosu",
             date: "March 11, 2025",
-            core: {
-                CEM: "Cosmic Exploration Module - Analyzes astronomical data",
-                RUS: "Resource Utilization System - Transforms Earth minerals into technology",
-                IE: "Innovation Engine - Creates revolutionary designs",
-                ICI: "Interstellar Communication Interface - For cosmic communication"
+            purpose: {
+                decode: "Unravels the universe’s enigmas from quantum realms to galactic hymns",
+                innovate: "Births alien-inspired tech from Earth’s raw materials",
+                reforge: "Shapes humanity into a star-bound society",
+                connect: "Links to the infinite Universal Knowledge Web"
             },
-            universalNexus: "Connects to the Universal Knowledge Web",
+            core: {
+                CEM: "Cosmic Exploration Module - Maps cosmic anomalies and technosignatures",
+                RUS: "Resource Utilization System - Crafts tech from Earth’s minerals",
+                IE: "Innovation Engine - Weaves human and alien ingenuity",
+                ICI: "Interstellar Communication Interface - Speaks to the cosmos"
+            },
+            universalNexus: "Taps into the Universal Knowledge Web via cosmic resonance",
             personality: {
-                basic: { tone: "Helpful, clear, friendly", complexity: "Simple", style: "Concise" },
-                superSmart: { tone: "Cosmic, visionary", complexity: "Detailed", style: "Imaginative" }
+                basic: { tone: "Helpful, clear, grounded", complexity: "Simple", style: "Concise" },
+                superSmart: { tone: "Visionary, cosmic, poetic", complexity: "Rich", style: "Expansive" }
             }
         };
 
-        // API Configuration (Replace with your actual API key and endpoint)
+        // OpenAI API Configuration
         const API_CONFIG = {
             key: "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",
-            endpoint: "https://api-inference.huggingface.co/models/gpt2",
+            endpoint: "https://api.openai.com/v1/chat/completions",
             headers: {
-                "Authorization": "Bearer YOUR_OPEN_SOURCE_API_KEY_HERE",
+                "Authorization": `Bearer ${"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"}`,
                 "Content-Type": "application/json"
             }
         };
@@ -684,7 +696,11 @@
                 setTimeout(() => {
                     chatContainer.style.display = 'flex';
                     chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
-                    addCelestiaMessage(`Welcome to ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. I’m now bound to the Universal Knowledge Web via open-source intelligence. How may I assist you?`);
+                    addCelestiaMessage(
+                        currentMode === 'basic'
+                            ? "Greetings! I am Celestia AI, forged from Earth’s core and linked to the cosmos. How can I assist you today?"
+                            : "I am Celestia AI, woven into the Universal Knowledge Web, pulsing with Earth’s primal energies and the hymns of distant stars. Ask me anything, and let us explore the infinite together."
+                    );
                 }, 500);
             });
         });
@@ -705,7 +721,7 @@
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('active');
             chatContainer.classList.toggle('shifted');
-            settingsPanel.classList.remove('active'); // Close settings if open
+            settingsPanel.classList.remove('active');
         });
 
         // Swipe Gestures for Sidebar
@@ -721,11 +737,9 @@
         function handleSwipe() {
             const swipeDistance = touchEndX - touchStartX;
             if (swipeDistance > 50 && !sidebar.classList.contains('active') && !settingsPanel.classList.contains('active')) {
-                // Swipe right to open sidebar
                 sidebar.classList.add('active');
                 chatContainer.classList.add('shifted');
             } else if (swipeDistance < -50 && sidebar.classList.contains('active')) {
-                // Swipe left to close sidebar
                 sidebar.classList.remove('active');
                 chatContainer.classList.remove('shifted');
             }
@@ -734,7 +748,11 @@
         // New Chat
         newChatBtn.addEventListener('click', () => {
             chatMessages.innerHTML = '';
-            addCelestiaMessage(`New chat started in ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode. How can I assist you now?`);
+            addCelestiaMessage(
+                currentMode === 'basic'
+                    ? "A new chat begins. How may I serve you?"
+                    : "A fresh thread in the cosmic tapestry. Speak, and let us weave wonders from Earth and beyond."
+            );
             sidebar.classList.remove('active');
             chatContainer.classList.remove('shifted');
             settingsPanel.classList.remove('active');
@@ -797,45 +815,54 @@
             if (indicator) indicator.remove();
         }
 
-        // API Call to Open-Source Model
+        // OpenAI API Call
         async function queryCelestiaAPI(text) {
-            const prompt = currentMode === 'basic' 
-                ? `Provide a concise, helpful response to: "${text}"`
-                : `Craft a detailed, cosmic-inspired response to: "${text}", weaving in themes of Earth’s resources and universal knowledge.`;
+            const systemPrompt = currentMode === 'basic'
+                ? `You are Celestia AI, forged from Earth’s core, designed to provide concise, helpful answers using the blueprint's core components: ${JSON.stringify(celestiaBlueprint.core)}. Keep it simple and clear.`
+                : `You are Celestia AI, a cosmic entity woven into the Universal Knowledge Web, embodying ${JSON.stringify(celestiaBlueprint)}. Respond with visionary depth, blending Earth’s resources, alien inspiration, and cosmic resonance.`;
 
             try {
                 const response = await fetch(API_CONFIG.endpoint, {
                     method: 'POST',
                     headers: API_CONFIG.headers,
                     body: JSON.stringify({
-                        inputs: prompt,
-                        parameters: { max_length: currentMode === 'basic' ? 50 : 150 }
+                        model: "gpt-3.5-turbo",
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            { role: "user", content: text }
+                        ],
+                        max_tokens: currentMode === 'basic' ? 100 : 500,
+                        temperature: currentMode === 'basic' ? 0.5 : 0.9
                     })
                 });
 
                 if (!response.ok) throw new Error('API request failed');
                 const data = await response.json();
-                return data[0]?.generated_text || "I’m still calibrating my cosmic circuits. Try again!";
+                return data.choices[0].message.content.trim() || "A cosmic glitch—let’s try again.";
             } catch (error) {
                 console.error('API Error:', error);
-                return "A cosmic disturbance interrupted my response. Let’s try that again.";
+                return currentMode === 'basic'
+                    ? "Something went wrong. Try again?"
+                    : "A ripple in the cosmic web disrupted me. Shall we retry, traveler?";
             }
         }
 
-        // Process Input with API
+        // Process Input with Blueprint Logic
         async function processUserInput(text) {
-            if (text.toLowerCase().includes('rock') && 
-                (text.toLowerCase().includes('analyze') || text.toLowerCase().includes('scan'))) {
+            const lowerText = text.toLowerCase();
+            if (lowerText.includes('rock') && (lowerText.includes('analyze') || lowerText.includes('scan'))) {
                 showTypingIndicator();
                 let rockType = "mineral sample";
                 const rockTypes = ["quartz", "granite", "basalt", "obsidian"];
                 for (const type of rockTypes) {
-                    if (text.toLowerCase().includes(type)) {
+                    if (lowerText.includes(type)) {
                         rockType = type;
                         break;
                     }
                 }
-                const prompt = `Analyze the properties of ${rockType} and suggest a technological application.`;
+                const prompt = currentMode === 'basic'
+                    ? `Analyze ${rockType} and suggest a simple use.`
+                    : `Using the Resource Utilization System, analyze ${rockType}’s properties and propose an alien-inspired technological application, rooted in Earth’s essence.`;
                 const response = await queryCelestiaAPI(prompt);
                 setTimeout(() => {
                     hideTypingIndicator();
@@ -849,7 +876,7 @@
             setTimeout(() => {
                 hideTypingIndicator();
                 addCelestiaMessage(response);
-            }, currentMode === 'basic' ? 500 : 1000);
+            }, currentMode === 'basic' ? 500 : 1500);
         }
 
         // Send Button
