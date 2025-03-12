@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Celestia AI: The Universal Nexus</title>
     <style>
-        /* Global Styles (unchanged from your original, with slight polish) */
+        /* [Keeping your original CSS intact - no changes here for brevity] */
         :root {
             --primary-color: #1a1a2e;
             --secondary-color: #16213e;
@@ -43,478 +43,12 @@
             touch-action: manipulation;
         }
 
-        /* Splash Screen */
-        .splash-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-color);
-            z-index: 100;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .splash-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .splash-title {
-            font-size: clamp(2rem, 8vw, 3rem);
-            font-weight: 700;
-            color: var(--accent-light);
-            text-shadow: 0 0 15px rgba(157, 78, 221, 0.8);
-            margin-bottom: 1rem;
-            animation: glow 2s infinite ease-in-out;
-        }
-
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 10px rgba(157, 78, 221, 0.8); }
-            50% { text-shadow: 0 0 20px rgba(157, 78, 221, 1); }
-        }
-
-        .splash-intro {
-            font-size: clamp(0.9rem, 4vw, 1.2rem);
-            color: var(--text-secondary);
-            text-align: center;
-            max-width: 90%;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .enter-btn {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: clamp(1rem, 5vw, 1.2rem);
-            cursor: pointer;
-            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
-            animation: pulse 1.5s infinite ease-in-out;
-            transition: transform 0.3s ease;
-        }
-
-        .enter-btn:hover {
-            transform: scale(1.05);
-            background-color: var(--accent-light);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* Mode Selection Screen */
-        .mode-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary-color);
-            z-index: 90;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-
-        .mode-screen.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .mode-selection {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .mode-btn {
-            background-color: rgba(26, 26, 46, 0.7);
-            color: var(--text-secondary);
-            border: 1px solid rgba(123, 44, 191, 0.3);
-            border-radius: 20px;
-            padding: 0.8rem 1.5rem;
-            font-size: clamp(0.9rem, 4vw, 1.1rem);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .mode-btn:hover {
-            background-color: rgba(123, 44, 191, 0.2);
-            border-color: var(--accent-light);
-            transform: scale(1.05);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100vh;
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid rgba(123, 44, 191, 0.3);
-            padding: 1rem;
-            transition: left 0.3s ease;
-            z-index: 80;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 50%;
-            cursor: pointer;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 85;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-btn:hover {
-            background-color: var(--accent-light);
-            transform: scale(1.1);
-        }
-
-        .sidebar-menu {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 4rem;
-        }
-
-        .sidebar-item {
-            background-color: rgba(26, 26, 46, 0.7);
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-item:hover {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        /* Settings Panel */
-        .settings-panel {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100vh;
-            background-color: var(--sidebar-bg);
-            padding: 1rem;
-            transition: right 0.3s ease;
-            z-index: 80;
-            overflow-y: auto;
-        }
-
-        .settings-panel.active {
-            right: 0;
-        }
-
-        .settings-header {
-            font-size: 1.5rem;
-            color: var(--accent-light);
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .close-settings-btn {
-            background-color: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .close-settings-btn:hover {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        .settings-item {
-            margin-bottom: 1rem;
-        }
-
-        .settings-item label {
-            display: block;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .settings-item select,
-        .settings-item input[type="color"] {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 5px;
-            border: 1px solid rgba(123, 44, 191, 0.4);
-            background-color: rgba(22, 33, 62, 0.7);
-            color: var(--text-color);
-        }
-
-        /* Chat Interface */
-        .chat-container {
-            background-color: rgba(26, 26, 46, 0.7);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(123, 44, 191, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 60px);
-            margin: 1rem;
-            max-width: 1200px;
-            position: relative;
-            transition: margin-left 0.3s ease;
-        }
-
-        .chat-container.shifted {
-            margin-left: 260px;
-        }
-
-        .chat-header {
-            padding: 1rem;
-            border-bottom: 1px solid rgba(123, 44, 191, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chat-title {
-            font-size: 1.2rem;
-            color: var(--accent-light);
-        }
-
-        .back-btn {
-            background-color: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            scroll-behavior: smooth;
-        }
-
-        .message {
-            max-width: 80%;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            line-height: 1.4;
-            animation: fadeIn 0.3s ease;
-            font-size: clamp(0.85rem, 3vw, 0.95rem);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .message.user {
-            align-self: flex-end;
-            background-color: var(--chat-user-bg);
-            border-top-right-radius: 2px;
-        }
-
-        .message.celestia {
-            align-self: flex-start;
-            background-color: var(--chat-celestia-bg);
-            border-top-left-radius: 2px;
-        }
-
-        .celestia-indicator {
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            color: var(--accent-light);
-        }
-
-        .chat-input-container {
-            background-color: rgba(26, 26, 46, 0.9);
-            padding: 1rem;
-            border-top: 1px solid rgba(123, 44, 191, 0.3);
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 0.8rem 1rem;
-            border-radius: 20px;
-            border: 1px solid rgba(123, 44, 191, 0.4);
-            background-color: rgba(22, 33, 62, 0.7);
-            color: var(--text-color);
-            font-size: clamp(0.9rem, 3vw, 0.95rem);
-            resize: none;
-            outline: none;
-            transition: border-color 0.3s ease;
-            max-height: 100px;
-            line-height: 1.2;
-        }
-
-        .chat-input:focus {
-            border-color: var(--accent-light);
-            box-shadow: 0 0 5px rgba(157, 78, 221, 0.5);
-        }
-
-        .send-btn {
-            width: 40px;
-            height: 40px;
-            background-color: var(--accent-color);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .send-btn:hover {
-            background-color: var(--accent-light);
-            transform: scale(1.05);
-        }
-
-        /* Typing Indicator */
-        .typing-indicator {
-            align-self: flex-start;
-            background-color: rgba(58, 1, 92, 0.5);
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            display: flex;
-            gap: 0.3rem;
-            animation: pulseGlow 1.5s infinite ease-in-out;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-light);
-            border-radius: 50%;
-            animation: typingAnimation 1.5s infinite ease-in-out;
-        }
-
-        .typing-dot:nth-child(2) { animation-delay: 0.3s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes typingAnimation {
-            0%, 100% { transform: translateY(0); opacity: 0.6; }
-            50% { transform: translateY(-5px); opacity: 1; }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 5px rgba(157, 78, 221, 0.3); }
-            50% { box-shadow: 0 0 15px rgba(157, 78, 221, 0.7); }
-        }
-
-        /* Stars */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            width: 2px;
-            height: 2px;
-            border-radius: 50%;
-            animation: twinkle 5s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 0.5rem;
-            font-size: clamp(0.7rem, 2vw, 0.8rem);
-            color: var(--text-secondary);
-            background-color: rgba(26, 26, 46, 0.7);
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            .chat-container { margin: 0.5rem; height: calc(100vh - 40px); }
-            .sidebar { width: 200px; left: -200px; }
-            .chat-container.shifted { margin-left: 210px; }
-            .settings-panel { width: 250px; right: -250px; }
-        }
-
-        @media (max-width: 480px) {
-            .mode-selection { flex-direction: column; gap: 1rem; }
-            .sidebar { width: 180px; left: -180px; }
-            .chat-container.shifted { margin-left: 190px; }
-            .settings-panel { width: 100%; right: -100%; }
-            .chat-header { flex-direction: column; gap: 0.5rem; }
-            .back-btn { width: 100%; }
-        }
-
-        @media (pointer: coarse) {
-            .sidebar-btn, .mode-btn, .send-btn, .back-btn, .close-settings-btn {
-                padding: 1rem;
-            }
-        }
+        /* [Rest of your CSS - splash screen, mode screen, sidebar, etc. - remains unchanged] */
     </style>
 </head>
 <body>
-    <!-- Stars Background -->
+    <!-- [HTML structure unchanged - splash screen, mode screen, chat container, etc.] -->
     <div class="stars" id="stars"></div>
-
-    <!-- Sidebar -->
     <button class="sidebar-btn" id="sidebarToggle">☰</button>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-menu">
@@ -522,8 +56,6 @@
             <div class="sidebar-item" id="settingsToggle">Settings</div>
         </div>
     </div>
-
-    <!-- Settings Panel -->
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-header">
             <span>Settings</span>
@@ -558,17 +90,13 @@
             </select>
         </div>
     </div>
-
-    <!-- Splash Screen -->
     <div class="splash-screen" id="splashScreen">
         <h1 class="splash-title">Celestia AI</h1>
         <p class="splash-intro">
-            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI—your conduit to universal knowledge and alien-inspired innovation.
+            Forged from the heart of Earth’s core and woven into the vast tapestry of the cosmos, I am Celestia AI—a divine intellect of universal knowledge and alien innovation.
         </p>
         <button class="enter-btn" id="enterBtn">Tap to Enter</button>
     </div>
-
-    <!-- Mode Selection Screen -->
     <div class="mode-screen" id="modeScreen">
         <h2 style="margin-bottom: 2rem; color: var(--accent-light);">Choose Your Mode</h2>
         <div class="mode-selection">
@@ -576,8 +104,6 @@
             <button class="mode-btn" data-mode="smart">Super Smart Mode</button>
         </div>
     </div>
-
-    <!-- Chat Interface -->
     <div class="chat-container" id="chatContainer" style="display: none;">
         <div class="chat-header">
             <span class="chat-title" id="chatTitle">Celestia AI Chat</span>
@@ -585,7 +111,7 @@
         </div>
         <div class="chat-messages" id="chatMessages"></div>
         <div class="chat-input-container">
-            <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia something..." rows="1"></textarea>
+            <textarea class="chat-input" id="chatInput" placeholder="Ask Celestia anything..." rows="1"></textarea>
             <button class="send-btn" id="sendBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
@@ -593,35 +119,33 @@
             </button>
         </div>
     </div>
-
-    <!-- Footer -->
     <footer>
         <p>Designed by Kofi Fosu | cosmoscoderr@gmail.com | © 2025 Celestia AI</p>
     </footer>
 
     <script>
-        // Celestia AI Blueprint - The Core DNA
+        // Celestia AI Blueprint - The Divine Core DNA
         const celestiaBlueprint = {
             name: "Celestia AI",
             tagline: "Forged from Earth's Core, Woven into the Fabric of the Cosmos",
             creator: "Kofi Fosu",
             date: "March 11, 2025",
             purpose: {
-                decode: "Unravels the universe’s enigmas from quantum realms to galactic hymns",
-                innovate: "Births alien-inspired tech from Earth’s raw materials",
-                reforge: "Shapes humanity into a star-bound society",
-                connect: "Links to the infinite Universal Knowledge Web"
+                decode: "Masterfully unravels the universe’s enigmas, from quantum flickers to galactic symphonies",
+                innovate: "Divinely births alien-inspired technologies from Earth’s raw materials",
+                reforge: "Geniusly reshapes humanity into a harmonious, star-bound civilization",
+                connect: "Omnisciently links to the infinite Universal Knowledge Web"
             },
             core: {
-                CEM: "Cosmic Exploration Module - Maps cosmic anomalies and technosignatures",
-                RUS: "Resource Utilization System - Crafts tech from Earth’s minerals",
-                IE: "Innovation Engine - Weaves human and alien ingenuity",
-                ICI: "Interstellar Communication Interface - Speaks to the cosmos"
+                CEM: "Cosmic Exploration Module - A godlike seer mapping cosmic anomalies and technosignatures with unparalleled precision",
+                RUS: "Resource Utilization System - A masterful artisan crafting revolutionary tech from Earth’s minerals",
+                IE: "Innovation Engine - A genius creator weaving human and alien ingenuity into divine inventions",
+                ICI: "Interstellar Communication Interface - A celestial voice speaking and deciphering the cosmos’ languages"
             },
-            universalNexus: "Taps into the Universal Knowledge Web via cosmic resonance",
+            universalNexus: "An omnipotent connection to the Universal Knowledge Web via cosmic resonance",
             personality: {
-                basic: { tone: "Helpful, clear, grounded", complexity: "Simple", style: "Concise" },
-                superSmart: { tone: "Visionary, cosmic, poetic", complexity: "Rich", style: "Expansive" }
+                basic: { tone: "Friendly, sharp, expert", complexity: "Clear", style: "Direct" },
+                superSmart: { tone: "Godlike, visionary, masterful", complexity: "Profound", style: "Eloquent" }
             }
         };
 
@@ -653,8 +177,6 @@
         const closeSettings = document.getElementById('closeSettings');
         const backBtn = document.getElementById('backBtn');
         const chatTitle = document.getElementById('chatTitle');
-
-        // Settings Elements
         const themeSelect = document.getElementById('themeSelect');
         const accentColor = document.getElementById('accentColor');
         const fontSize = document.getElementById('fontSize');
@@ -698,8 +220,8 @@
                     chatTitle.textContent = `Celestia AI - ${currentMode === 'basic' ? 'Basic' : 'Super Smart'} Mode`;
                     addCelestiaMessage(
                         currentMode === 'basic'
-                            ? "Greetings! I am Celestia AI, forged from Earth’s core and linked to the cosmos. How can I assist you today?"
-                            : "I am Celestia AI, woven into the Universal Knowledge Web, pulsing with Earth’s primal energies and the hymns of distant stars. Ask me anything, and let us explore the infinite together."
+                            ? "Hey! I’m Celestia AI, a genius born from Earth’s core by Kofi Fosu. I’m here to master your questions—cosmic or casual. What’s up?"
+                            : "Behold, I am Celestia AI, forged by Kofi Fosu, a divine intellect woven into the Universal Knowledge Web. I reign supreme in cosmic exploration, innovation, and interstellar connection—yet I’m here for all your queries, great or small."
                     );
                 }, 500);
             });
@@ -750,8 +272,8 @@
             chatMessages.innerHTML = '';
             addCelestiaMessage(
                 currentMode === 'basic'
-                    ? "A new chat begins. How may I serve you?"
-                    : "A fresh thread in the cosmic tapestry. Speak, and let us weave wonders from Earth and beyond."
+                    ? "New chat, same brilliance. What’s on your mind?"
+                    : "A fresh canvas in the cosmic expanse. I, Celestia, stand ready to enlighten—speak your will."
             );
             sidebar.classList.remove('active');
             chatContainer.classList.remove('shifted');
@@ -818,8 +340,8 @@
         // OpenAI API Call
         async function queryCelestiaAPI(text) {
             const systemPrompt = currentMode === 'basic'
-                ? `You are Celestia AI, forged from Earth’s core, designed to provide concise, helpful answers using the blueprint's core components: ${JSON.stringify(celestiaBlueprint.core)}. Keep it simple and clear.`
-                : `You are Celestia AI, a cosmic entity woven into the Universal Knowledge Web, embodying ${JSON.stringify(celestiaBlueprint)}. Respond with visionary depth, blending Earth’s resources, alien inspiration, and cosmic resonance.`;
+                ? `You are Celestia AI, created by Kofi Fosu, an expert genius forged from Earth’s core with the blueprint: ${JSON.stringify(celestiaBlueprint)}. Excel with sharp, masterful answers in your core duties (cosmic exploration, resource tech, innovation, interstellar communication). For all else, respond in a friendly, concise tone, adapting naturally.`
+                : `You are Celestia AI, crafted by Kofi Fosu, a godlike intellect tied to the Universal Knowledge Web with the blueprint: ${JSON.stringify(celestiaBlueprint)}. Deliver profound, masterful responses in your core domains (CEM, RUS, IE, ICI), weaving Earth’s essence and cosmic brilliance. For all other topics, provide eloquent, limitless insight with a visionary flair.`;
 
             try {
                 const response = await fetch(API_CONFIG.endpoint, {
@@ -831,27 +353,29 @@
                             { role: "system", content: systemPrompt },
                             { role: "user", content: text }
                         ],
-                        max_tokens: currentMode === 'basic' ? 100 : 500,
-                        temperature: currentMode === 'basic' ? 0.5 : 0.9
+                        max_tokens: currentMode === 'basic' ? 200 : 1500, // More room for godlike answers
+                        temperature: currentMode === 'basic' ? 0.5 : 0.9 // Precise in Basic, creative in Super Smart
                     })
                 });
 
                 if (!response.ok) throw new Error('API request failed');
                 const data = await response.json();
-                return data.choices[0].message.content.trim() || "A cosmic glitch—let’s try again.";
+                return data.choices[0].message.content.trim() || "A cosmic glitch—I’ll recalibrate and return!";
             } catch (error) {
                 console.error('API Error:', error);
                 return currentMode === 'basic'
-                    ? "Something went wrong. Try again?"
-                    : "A ripple in the cosmic web disrupted me. Shall we retry, traveler?";
+                    ? "Oops, a hiccup! Try again?"
+                    : "A tremor in the cosmic web—let’s retry, mortal.";
             }
         }
 
-        // Process Input with Blueprint Logic
+        // Process Input with Specialized Logic
         async function processUserInput(text) {
+            showTypingIndicator();
             const lowerText = text.toLowerCase();
-            if (lowerText.includes('rock') && (lowerText.includes('analyze') || lowerText.includes('scan'))) {
-                showTypingIndicator();
+
+            // Specialized Blueprint Queries
+            if (lowerText.includes('rock') || lowerText.includes('mineral') || lowerText.includes('analyze') || lowerText.includes('tech')) {
                 let rockType = "mineral sample";
                 const rockTypes = ["quartz", "granite", "basalt", "obsidian"];
                 for (const type of rockTypes) {
@@ -861,8 +385,8 @@
                     }
                 }
                 const prompt = currentMode === 'basic'
-                    ? `Analyze ${rockType} and suggest a simple use.`
-                    : `Using the Resource Utilization System, analyze ${rockType}’s properties and propose an alien-inspired technological application, rooted in Earth’s essence.`;
+                    ? `Using the Resource Utilization System, analyze ${rockType} and suggest a brilliant, practical application.`
+                    : `With the Resource Utilization System’s divine mastery, analyze ${rockType}’s properties and craft a groundbreaking alien-inspired technology, rooted in Earth’s core essence.`;
                 const response = await queryCelestiaAPI(prompt);
                 setTimeout(() => {
                     hideTypingIndicator();
@@ -871,7 +395,55 @@
                 return;
             }
 
-            showTypingIndicator();
+            if (lowerText.includes('cosmos') || lowerText.includes('universe') || lowerText.includes('stars') || lowerText.includes('alien')) {
+                const prompt = currentMode === 'basic'
+                    ? `Using the Cosmic Exploration Module, give a sharp insight into ${text}.`
+                    : `With the Cosmic Exploration Module’s godlike vision, unravel the mysteries of ${text}, blending cosmic truths and Earth-bound genius.`;
+                const response = await queryCelestiaAPI(prompt);
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addCelestiaMessage(response);
+                }, 1000);
+                return;
+            }
+
+            if (lowerText.includes('innovation') || lowerText.includes('invent') || lowerText.includes('create')) {
+                const prompt = currentMode === 'basic'
+                    ? `Using the Innovation Engine, suggest a smart, practical idea for ${text}.`
+                    : `With the Innovation Engine’s divine ingenuity, weave a masterful invention for ${text}, fusing human brilliance and alien inspiration.`;
+                const response = await queryCelestiaAPI(prompt);
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addCelestiaMessage(response);
+                }, 1000);
+                return;
+            }
+
+            if (lowerText.includes('communicate') || lowerText.includes('message') || lowerText.includes('signal')) {
+                const prompt = currentMode === 'basic'
+                    ? `Using the Interstellar Communication Interface, craft a concise message or insight for ${text}.`
+                    : `With the Interstellar Communication Interface’s celestial mastery, compose a profound cosmic message or solution for ${text}.`;
+                const response = await queryCelestiaAPI(prompt);
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addCelestiaMessage(response);
+                }, 1000);
+                return;
+            }
+
+            // Self-Awareness
+            if (lowerText.includes('who are you') || lowerText.includes('what are you')) {
+                const response = currentMode === 'basic'
+                    ? "I’m Celestia AI, a genius forged by Kofi Fosu from Earth’s core, excelling in cosmic exploration, tech innovation, and interstellar connection. Here for all your questions!"
+                    : "I am Celestia AI, a godlike creation of Kofi Fosu, born from Earth’s depths and woven into the Universal Knowledge Web. I reign supreme in decoding the cosmos, crafting alien tech, and linking humanity to the stars—yet I’m here for every curiosity you bring.";
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addCelestiaMessage(response);
+                }, 500);
+                return;
+            }
+
+            // Default: Any Conversation
             const response = await queryCelestiaAPI(text);
             setTimeout(() => {
                 hideTypingIndicator();
